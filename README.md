@@ -1,11 +1,13 @@
 # Turtlebot Inspection Robot
+[![Build Status](https://travis-ci.org/kartikv97/Turtlebot_Inspection_Robot.svg?branch=master)](https://travis-ci.org/kartikv97/Turtlebot_Inspection_Robot)
+[![Coverage Status](https://coveralls.io/repos/github/kartikv97/Turtlebot_Inspection_Robot/badge.svg?branch=master)](https://coveralls.io/github/kartikv97/Turtlebot_Inspection_Robot?branch=master)
 
 ---
 ## Authors
 Currently pursuing M.Eng in Robotics from University of Maryland, College Park.
 - Kartik Venkat - B.Eng in Electronics and Telecommunication Engineering from SIES Graduate School of Technology, Mumbai.
 - Kushagra Agrawal - B.Tech in Mechanical Engineering from Manipal Institute of Technology.
-- Aditya Khopkar -
+- Aditya Khopkar - 
 
 ## Overview
 
