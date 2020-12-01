@@ -4,7 +4,7 @@ dist: bionic
 cache: apt
 language: generic
 os: linux
-sudo: true
+
 
 # Configuration variables. All variables are global
 env:
