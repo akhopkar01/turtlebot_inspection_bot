@@ -19,7 +19,7 @@ the anomaly.
 
 ## AIP Document
 [![AIP](https://img.shields.io/badge/AIP-Click%20Here-red)](https://docs.google.com/spreadsheets/d/1gK6UU1C03G-Nt6Inuk5zHCRxUzo2bpcLRpkTf8MvC3I/edit?usp=sharing)
-
+[![SprintDoc](https://img.shields.io/badge/SprintDoc-Click%20Here-red)](https://docs.google.com/document/d/1NFZc3CICtRCiKvu_DC-juLE--KWvMurhhtYTClnU67w/edit?usp=sharing)
 
 ## Dependencies
 ```
