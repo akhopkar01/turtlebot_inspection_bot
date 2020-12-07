@@ -42,7 +42,7 @@ SOFTWARE.
 #include <ros/ros.h>
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
-#include <sensor_msgs/image_encodings.h>
+#include <sensor_msgs/Image.h>
 #include <opencv2/opencv.hpp>
 
 class AnomalyDetector {
@@ -53,7 +53,7 @@ class AnomalyDetector {
      * @param: Intrinsic Parameter const reference
      * @return: None
      * */
-     AnomalyDetector(const cv::Matx34f& extP_, const cv::Matx34f& intP_);
+     AnomalyDetector(const cv::Matx34f& extP_, const cv::Matx33f& intP_);
      
      /**
       * @brief: Get Image from ROS Image to CV image using cv_bridge
