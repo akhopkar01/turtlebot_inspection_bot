@@ -53,7 +53,7 @@ class AnomalyDetector {
      * @param: Intrinsic Parameter const reference
      * @return: None
      * */
-     AnomalyDetector(const cv::Matx34f& extP_, const cv::Matx33f& intP_);
+     AnomalyDetector(const cv::Matx34f&, const cv::Matx33f&);
      
      /**
       * @brief: Get Image from ROS Image to CV image using cv_bridge
@@ -100,5 +100,4 @@ class AnomalyDetector {
      cv::Matx34f P_;
      // flag to detect anomaly
      bool anomalyDetected_;
-    
-}
+};

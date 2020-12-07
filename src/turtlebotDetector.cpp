@@ -40,9 +40,7 @@
 /**
  * @brief: Detector class constructor definition
  * */
-AnomalyDetector::AnomalyDetector(cv::Matx34f extP_, cv::Matx34f intP_) {
-  imgCoords_{0, 0};
-  worldCoords_{0.0f, 0.0f, 0.0f};
+AnomalyDetector::AnomalyDetector(const cv::Matx34f& extP_, const cv::Matx33f& intP_) {
   P_ = intP_ * extP_;
   imgSub_ = nh_.subscribe("/camera/rgb/rgb_raw", 1,
                           &AnomalyDetector::imgCallback, this);
@@ -69,10 +67,10 @@ void AnomalyDetector::imgCallback(const
  * @brief: Detection method definiton
  * */
 cv::Point2i AnomalyDetector::detectAnomaly(cv::Mat img) {
-//   imgCoords_{0, 0};
+  cv::Point2i dummy{0, 0};
   // Perform Image processing color recognition
   // Detect centroid of the recognition
-  return imgCoords;
+  return dummy;
 }
 
 /**
@@ -80,6 +78,6 @@ cv::Point2i AnomalyDetector::detectAnomaly(cv::Mat img) {
  * */
 cv::Point3f AnomalyDetector::localizePoints(cv::Point2i imgCoords) {
   // Perform geometric transformation
-
-  return worldCoords;
+  cv::Point3f worldDummy{0, 0, 0};
+  return worldDummy;
 }
