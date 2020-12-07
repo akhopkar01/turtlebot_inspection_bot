@@ -8,6 +8,11 @@
 * Kushagra Agrawal : M.Eng Robotics, UMD | B.Tech Mechanical Engineering, Manipal Institute of Technology.
 * Aditya Khopkar : M.Eng Robotics, UMD | B.Eng Electronics Engineering, University of Mumbai 
 
+## TODO
+1. Update worlds/anomalies.world to encode color information
+2. Stub implementation
+3. Unit tests
+
 ## Overview
 
 In this project we are developing a real time anomaly detection robot based on TurtleBot 3. 
