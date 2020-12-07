@@ -93,7 +93,16 @@ bool TurtlebotMover::checkObstacle() {
 }
 
 /*
- * @brief Function that changes the direction of the Turtlebot.
+ * @brief Set the isObstacle flag indicating that there is an
+ * obstacle ahead.
+ * @param obstacle: bool value
+ */
+void TurtlebotMover::setObstacle(bool obstacle) {
+    return;
+}
+
+/*
+ * @brief Function that turns the TurtleBot according to the direction specified.
  * @param newDirection: std::string indicating new direction.
  * @return none.
  */
@@ -102,7 +111,7 @@ void TurtlebotMover::changeDirection(std::string newDirection) {
 }
 
 /*
- * @brief Function that moves the Turtlebot in the environment.
+ * @brief Function that moves the TurtleBot in the environment.
  * @param none.
  * @return none.
  */
