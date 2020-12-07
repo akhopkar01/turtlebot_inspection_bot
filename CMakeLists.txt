@@ -30,9 +30,9 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-add_executable(detector include/detector.hpp)
+add_executable(detector src/main.cpp src/turtlebotDetector.cpp)
 
-add_executable(mover src/main.cpp include/mover.hpp src/turtlebotMover.cpp)
+add_executable(mover src/main.cpp src/turtlebotMover.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(detector
@@ -55,7 +55,7 @@ if(CATKIN_ENABLE_TESTING)
  find_package(rostest REQUIRED)
  add_rostest_gtest(testRobot test/main.cpp test/detectorTest.cpp test/moverTest.cpp)
  target_link_libraries(testRobot ${catkin_LIBRARIES})
- add_dependencies(testRobot demo ${catkin_EXPORTED_TARGETS})
+ add_dependencies(testRobot ${catkin_EXPORTED_TARGETS})
 endif()
 
 
