@@ -44,9 +44,20 @@ target_link_libraries(mover
         ${catkin_LIBRARIES}
         ${OpenCV_LIBS}
         )
+#### To be verified
+#add_dependencies(demo beginner_tutorials_generate_messages_cpp)
+
 
 #############
 ## Testing ##
 #############
+if(CATKIN_ENABLE_TESTING)
+ find_package(rostest REQUIRED)
+ add_rostest_gtest(testRobot test/main.cpp test/detectorTest.cpp test/moverTest.cpp)
+ target_link_libraries(testRobot ${catkin_LIBRARIES})
+ add_dependencies(testRobot demo ${catkin_EXPORTED_TARGETS})
+endif()
+
+
 
 
