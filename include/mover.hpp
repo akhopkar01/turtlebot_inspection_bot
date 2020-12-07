@@ -61,7 +61,7 @@ class TurtlebotMover {
 
  public:
     /*
-     * @brief class constructor.
+     * @brief Constructor for turtlebotMover class.
      */
     TurtlebotMover();
 
@@ -73,7 +73,7 @@ class TurtlebotMover {
     void scanEnvCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
     /*
-     * @brief Detect obstacles in the environment.
+     * @brief Check if an obstacle is present in the Turtlebot's path.
      * @param none.
      * @return bool value determining if obstacle is detected.
      */
@@ -85,7 +85,7 @@ class TurtlebotMover {
      * @param obstacle: bool value
      * @return none.
      */
-    bool setObstacle();
+    void setObstacle(bool obstacle);
 
     /*
      * @brief Function that turns the TurtleBot according to the direction specified.
@@ -102,7 +102,7 @@ class TurtlebotMover {
     void moveRobot();
 
     /*
-     * @brief class destructor.
+     * @brief Destructor for the TurtlebotMover class
      */
     ~TurtlebotMover();
 };
