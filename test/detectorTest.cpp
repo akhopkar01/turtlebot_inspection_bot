@@ -43,7 +43,9 @@
 #include <opencv2/opencv.hpp>
 #include <detector.hpp>
 
-AnomalyDetector anomalydetector;
+cv::Matx33f intP;
+cv::Matx34f extP;
+AnomalyDetector anomalydetector(intP, extP);
 /**
  * @brief Test to check the detectAnomaly method.
  */

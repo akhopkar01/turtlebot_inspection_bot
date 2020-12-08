@@ -70,6 +70,6 @@ EXPECT_NO_FATAL_FAILURE(turtlebot.moveRobot());
 TEST(Sensing, LaserScan) {
   ros::NodeHandle n;
   ros::Subscriber sub = n.subscribe<sensor_msgs::LaserScan>(
-      "/scan", 1000, &Turtlebotmover::scanEnvCallback, &turtlebot);
+      "/scan", 1000, &TurtlebotMover::scanEnvCallback, &turtlebot);
   EXPECT_NO_FATAL_FAILURE(sub);
 }
