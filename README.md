@@ -1,17 +1,23 @@
-# Turtlebot Inspection Robot ROS Package
+# **Turtlebot Inspection Robot ROS Package**
 [![Build Status](https://travis-ci.org/kartikv97/Turtlebot_Inspection_Robot.svg?branch=master)](https://travis-ci.org/kartikv97/Turtlebot_Inspection_Robot)
 [![Coverage Status](https://coveralls.io/repos/github/kartikv97/Turtlebot_Inspection_Robot/badge.svg?branch=master)](https://coveralls.io/github/kartikv97/Turtlebot_Inspection_Robot?branch=master)
 
 ---
 ## Authors
-* Kartik Venkat : M.Eng Robotics, UMD | B.Eng Electronics and Telecommunication Engineering, University of Mumbai.
-* Kushagra Agrawal : M.Eng Robotics, UMD | B.Tech Mechanical Engineering, Manipal Institute of Technology.
-* Aditya Khopkar : M.Eng Robotics, UMD | B.Eng Electronics Engineering, University of Mumbai 
+* **Kartik Venkat :** M.Eng Robotics, UMD | B.Eng Electronics and Telecommunication Engineering, University of Mumbai.
+* **Kushagra Agrawal :** M.Eng Robotics, UMD | B.Tech Mechanical Engineering, Manipal Institute of Technology.
+* **Aditya Khopkar :** M.Eng Robotics, UMD | B.Eng Electronics Engineering, University of Mumbai 
 
 ## TODO
-1. Update worlds/anomalies.world to encode color information
-2. Stub implementation
-3. Unit tests
+- Sprint Week 2
+    - [X] Create worlds/anomalies.world 
+    - [X] Stub implementation
+    - [X] Unit tests
+- Sprint Week 3
+    - [ ] Update worlds/anomalies.world to encode color information
+    - [ ] Complete both Node Implementation
+    - [ ] Verify that all Tests pass
+    - [ ] Verify atleast 80% Code Coverage
 
 ## Overview
 
@@ -44,3 +50,11 @@ cd ~/catkin_ws
 source ./devel/setup.bash
 catkin_make
 ```
+## Visualize Simulation Environment in Gazebo
+```
+cd ~/catkin_ws
+source ./devel/setup.bash
+catkin_make
+roslaunch turtlebot_inspection_bot turtlebot_world.launch
+```
+**Note:** Press **ctrl+c** in the terminal to stop the program.
