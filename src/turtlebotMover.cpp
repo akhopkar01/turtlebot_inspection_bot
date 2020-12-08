@@ -47,7 +47,7 @@ TurtlebotMover::TurtlebotMover() {
 
     subLaserScanner = nh.subscribe<sensor_msgs::LaserScan>
             ("/scan", 1000,
-             &TurtlebotWalker::scanEnvCallback, this);
+             &TurtlebotMover::scanEnvCallback, this);
     /*
      * @brief Initialize the linear and angular velocities
      * of the Turtlebot.
@@ -69,7 +69,7 @@ TurtlebotMover::TurtlebotMover() {
      */
     isObstacle = false;
     obstacleThresh = 1.0;
-    newDirection = "Right"
+    newDirection = "Right";
 }
 
 
