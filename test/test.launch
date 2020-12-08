@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="turtlebot_inspection_bot" name="mover" type="turtlebotMover" />
+    <test pkg="turtlebot_inspection_bot" test-name="testRobot" type="moverTest" />
+</launch>

@@ -40,6 +40,7 @@
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/image_encodings.h>
+#include <sensor_msgs/LaserScan.h>
 #include <opencv2/opencv.hpp>
 #include <mover.hpp>
 
@@ -55,13 +56,20 @@ TEST(Turtlebotmover, checkObstacle) {
 /**
  * @ brief Test for changeDirection method of the class.
  */
-TEST(Turtlenotmover, changeDirection) {
+TEST(Turtlebotmover, changeDirection) {
     std::string newDirection = "Right";
     EXPECT_NO_FATAL_FAILURE(turtlebot.changeDirection(newDirection));
 }
 /**
  * @ brief Test for moveRobot method of the class.
  */
-TEST(Turtlenotmover, moveRobot) {
+TEST(Turtlebotmover, moveRobot) {
 EXPECT_NO_FATAL_FAILURE(turtlebot.moveRobot());
+}
+
+TEST(Sensing, LaserScan) {
+  ros::NodeHandle n;
+  ros::Subscriber sub = n.subscribe<sensor_msgs::LaserScan>(
+      "/scan", 1000, &Turtlebotmover::scanEnvCallback, &turtlebot);
+  EXPECT_NO_FATAL_FAILURE(sub);
 }
