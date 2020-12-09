@@ -45,7 +45,7 @@
 
 cv::Matx33f intP;
 cv::Matx34f extP;
-AnomalyDetector anomalydetector(intP, extP);
+AnomalyDetector anomalydetector(extP, intP);
 /**
  * @brief Test to check the detectAnomaly method.
  */
