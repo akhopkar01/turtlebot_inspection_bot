@@ -1,6 +1,6 @@
 # **Turtlebot Inspection Robot ROS Package**
-[![Build Status](https://travis-ci.org/kartikv97/Turtlebot_Inspection_Robot.svg?branch=master)](https://travis-ci.org/kartikv97/Turtlebot_Inspection_Robot)
-[![Coverage Status](https://coveralls.io/repos/github/kartikv97/Turtlebot_Inspection_Robot/badge.svg?branch=master)](https://coveralls.io/github/kartikv97/Turtlebot_Inspection_Robot?branch=master)
+[![Build Status](https://travis-ci.org/kartikv97/turtlebot_inspection_bot.svg?branch=master)](https://travis-ci.org/kartikv97/turtlebot_inspection_bot)
+[![Coverage Status](https://coveralls.io/repos/github/kartikv97/turtlebot_inspection_bot/badge.svg?branch=master)](https://coveralls.io/github/kartikv97/turtlebot_inspection_bot?branch=master)
 
 ---
 ## Authors
