@@ -57,4 +57,12 @@ source ./devel/setup.bash
 catkin_make
 roslaunch turtlebot_inspection_bot turtlebot_world.launch
 ```
+## Run ROS Test(Work in progress)
+```
+cd ~/catkin_ws
+source ./devel/setup.bash
+catkin_make
+catkin_make tests              
+```
+**NOTE:** To be resolved in Phase 3 Implementation. (currently Failing due to the stub implementations and inactive ROS Nodes)[]
 **Note:** Press **ctrl+c** in the terminal to stop the program.
