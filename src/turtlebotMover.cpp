@@ -38,6 +38,8 @@
 #include <iostream>
 #include <../include/mover.hpp>
 
+#define _ANGLE_ 60
+
 /*
  * @brief Constructor for turtlebotMover class.
  */
@@ -48,6 +50,8 @@ TurtlebotMover::TurtlebotMover() {
     subLaserScanner = nh.subscribe<sensor_msgs::LaserScan>
             ("/scan", 1000,
              &TurtlebotMover::scanEnvCallback, this);
+    sub_odometry = nh.subscribe<nav_msgs::Odometry>("odom", 1, &TurtlebotMover::odomCallback,this);
+
     /*
      * @brief Initialize the linear and angular velocities
      * of the Turtlebot.
@@ -67,11 +71,23 @@ TurtlebotMover::TurtlebotMover() {
     /*
      * @brief Initialize the private variables
      */
+    isGoal = false;
     isObstacle = false;
     obstacleThresh = 1.0;
     newDirection = "Right";
 }
-
+/*
+ *  @brief Callback service to get the live pose of the turtlebot
+ *  from the environment
+ *  @param msg: Pointer to messages from Odometry sensor.
+ *  @return none.
+ */
+void TurtlebotMover::odomCallback(const nav_msgs::Odometry::ConstPtr& msg) {
+    // linear position
+    current_pose.x = msg->pose.pose.position.x;
+    current_pose.y = msg->pose.pose.position.y;
+    ROS_INFO("Got a transform! x = %f, y = %f",current_pose.x,current_pose.y);
+}
 
 /*
  * @brief Callback service to scan the environment for obstacles.
@@ -80,9 +96,30 @@ TurtlebotMover::TurtlebotMover() {
  */
 void TurtlebotMover::scanEnvCallback(const sensor_msgs::LaserScan::
                                                         ConstPtr& msg) {
+    auto sensorRanges = msg->ranges;
+    for (size_t i = 0; i <= _ANGLE_; ++i) {
+        if (sensorRanges[i] < obstacleThresh && sensorRanges[i + 299] < obstacleThresh) {
+            isObstacle = true;
+            return;
+        }
+    }
+    isObstacle = false;
     return;
 }
-
+/*
+ * @brief Check if the turtlebot has reached the goal.
+ * @param current_pose: type Pose2D (stores current pose
+ * of the turtlebot.)
+ * @return bool value determining whether goal is reached or not.
+ */
+bool TurtlebotMover::isGoalReached(geometry_msgs::Pose2D current_pose) {
+    if (current_pose.x > -1.0 && current_pose.x < 2.0 && current_pose.y > 1.0 && current_pose.y < 5.0 ) {
+        ROS_INFO("Goal REACHED!!! x = %f, y = %f", current_pose.x, current_pose.y);
+        return true;
+    } else {
+        return false;
+    }
+}
 /*
  * @brief Check if an obstacle is present in the Turtlebot's path.
  * @param none.
@@ -98,7 +135,7 @@ bool TurtlebotMover::checkObstacle() {
  * @param obstacle: bool value
  */
 void TurtlebotMover::setObstacle(bool obstacle) {
-    return;
+    isObstacle = obstacle;
 }
 
 /*
@@ -106,8 +143,18 @@ void TurtlebotMover::setObstacle(bool obstacle) {
  * @param newDirection: std::string indicating new direction.
  * @return none.
  */
-void TurtlebotMover::changeDirection(std::string newDirection) {
-    return;
+double TurtlebotMover::changeDirection(std::string newDirection) {
+    double angularVelocity = 0.0;
+    if(newDirection=="Right" || newDirection == "RIGHT" || newDirection=="R" || newDirection=="right") {
+        angularVelocity = -0.8;
+        return angularVelocity;
+    } else if(newDirection=="Left" || newDirection == "LEFT" || newDirection=="L" || newDirection=="left") {
+        angularVelocity = 0.8;
+        return angularVelocity;
+    } else {
+        angularVelocity = 0.0;
+        return angularVelocity;
+    }
 }
 
 /*
@@ -116,9 +163,28 @@ void TurtlebotMover::changeDirection(std::string newDirection) {
  * @return none.
  */
 void TurtlebotMover::moveRobot() {
-    return;
-}
+    ros::Rate loop(10);
 
+    while (ros::ok()) {
+        isGoal = isGoalReached(current_pose);
+        if (isGoal) {
+            ROS_INFO_STREAM("Exiting Program.....");
+            return;
+        }
+        if (checkObstacle()) {
+            ROS_WARN_STREAM("Obstacle Detected Ahead!!, Turn Right");
+            velMsg.linear.x = 0.0;
+            velMsg.angular.z = changeDirection("Right");
+        } else {
+            ROS_INFO_STREAM("The path ahead is clear. Move Forward !!");
+            velMsg.linear.x = 0.2;
+            velMsg.angular.z = 0.0;
+        }
+        pubVel.publish(velMsg);
+        ros::spinOnce();
+        loop.sleep();
+    }
+}
 /*
  * @brief Destructor for the TurtlebotMover class.
  * @param none.
