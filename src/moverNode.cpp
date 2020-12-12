@@ -2,7 +2,7 @@
 /**
  * @copyright (c) 2020, Kartik Venkat, Kushagra Agrawal, Aditya Khopkar
  *
- * @file main.cpp
+ * @file moverNode.cpp
  * @authors
  * Kartik Venkat kartik.venkat86@gmail.com \n
  * Kushagra Agrawal kushagraagrawal425@gmail.com  \n
@@ -17,7 +17,7 @@
  * This is the main file to run the Gazebo demo..
  */
 
-
+#include "../include/mover.hpp"
 
 /*
  * @brief main function
@@ -27,6 +27,8 @@
  */
 
 int main(int argc, char* argv[]) {
-
+    ros::init(argc, argv, "mover");
+    TurtlebotMover mover;
+    mover.moveRobot();
     return 0;
 }
