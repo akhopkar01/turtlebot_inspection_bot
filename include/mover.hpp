@@ -41,7 +41,8 @@
 #include <geometry_msgs/Twist.h>
 #include <ros/ros.h>
 #include <iostream>
-
+#include <nav_msgs/Odometry.h>
+#include <geometry_msgs/Pose2D.h>
 /*
  * @brief Mover class for TurtleBot
  *
@@ -54,6 +55,9 @@ class TurtlebotMover {
     ros::NodeHandle nh;
     ros::Publisher pubVel;
     ros::Subscriber subLaserScanner;
+    ros::Subscriber sub_odometry;
+    geometry_msgs::Pose2D current_pose;
+    bool isGoal;
     bool isObstacle;
     double obstacleThresh;
     std::string newDirection;
@@ -64,7 +68,13 @@ class TurtlebotMover {
      * @brief Constructor for turtlebotMover class.
      */
     TurtlebotMover();
-
+    /*
+     *  @brief Callback service to get the live pose of the turtlebot
+     *  from the environment
+     *  @param msg: Pointer to messages from Odometry sensor.
+     *  @return none.
+     */
+    void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
     /*
      * @brief Callback service to scan the environment for obstacles.
      * @param msg : Pointer for messages from the LaserScan sensor.
@@ -78,6 +88,13 @@ class TurtlebotMover {
      * @return bool value determining if obstacle is detected.
      */
     bool checkObstacle();
+    /*
+     * @brief Check if the turtlebot has reached the goal.
+     * @param current_pose: type Pose2D (stores current pose
+     * of the turtlebot.)
+     * @return bool value determining whether goal is reached or not.
+     */
+    bool isGoalReached(geometry_msgs::Pose2D current_pose);
 
     /*
      * @brief Sets the isObstacle flag indicating that there is an
@@ -92,7 +109,7 @@ class TurtlebotMover {
      * @param newDirection: std::string that indicates the new direction.
      * @return none.
      */
-    void changeDirection(std::string newDirection);
+    double changeDirection(std::string newDirection);
 
     /*
      * @brief Function that moves the TurtleBot in the environment.
