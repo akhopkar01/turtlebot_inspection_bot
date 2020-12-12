@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
+  nav_msgs
 )
 
 find_package(OpenCV REQUIRED)
@@ -32,7 +33,7 @@ include_directories(
 
 add_executable(detector src/main.cpp src/turtlebotDetector.cpp)
 
-add_executable(mover src/main.cpp src/turtlebotMover.cpp)
+add_executable(mover src/moverNode.cpp src/turtlebotMover.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(detector
