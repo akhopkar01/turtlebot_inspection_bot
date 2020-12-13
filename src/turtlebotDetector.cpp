@@ -125,15 +125,23 @@ cv::Point2i AnomalyDetector::detectAnomaly() {
   double M01{moments_.m01}, M10{moments_.m10};
   double Area{moments_.m00};
 
+  // Find contours to detect bounding box
+  cv::Rect bounding_rect;
+  std::vector<std::vector<cv::Point2i>> contours;
+  cv::findContours(maskImg_, contours, cv::RETR_CCOMP, cv::CHAIN_APPROX_SIMPLE);
+
   // If considerable area
   if (Area >= 1000.f) {
+    // Bounding Box
+    bounding_rect = cv::boundingRect(contours[0]);
     int posX = M10 / Area;
     int posY = M01 / Area;
     dummy.x = posX;
     dummy.y = posY;
-    cv::putText(cvImg_, "ANOMALY", cv::Point2i(posX, posY+15),
-                cv::FONT_HERSHEY_COMPLEX, 0.8, COLOR_);
-    cv::circle(cvImg_, cv::Point2i(posX, posY), 5, COLOR_, cv::FILLED);
+    cv::putText(cvImg_, "Anomaly", cv::Point2i(posX, posY + 20),
+                cv::FONT_HERSHEY_SIMPLEX, 0.8, COLOR_);
+    cv::circle(cvImg_, cv::Point2i(posX, posY), 2, COLOR_, cv::FILLED);
+    cv::rectangle(cvImg_, bounding_rect, COLOR_);
     anomalyDetected_ = true;
   }
   return dummy;
@@ -142,7 +150,7 @@ cv::Point2i AnomalyDetector::detectAnomaly() {
 /**
  * @brief: get robot frame coordinates definition 
  * */
-cv::Point3f AnomalyDetector::localizePoints(cv::Point2i imgCoords) {
+cv::Point3f AnomalyDetector::localizePoints(const cv::Point2i& imgCoords) const{
   // Perform geometric transformation
   cv::Matx31f robotPoints;
   cv::Matx33f H{P_(0, 0), P_(0, 1), P_(0, 3), 

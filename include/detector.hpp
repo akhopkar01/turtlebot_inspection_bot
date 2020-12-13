@@ -74,7 +74,7 @@ class AnomalyDetector {
       * @param: 2D Image coordinates
       * @return: 3D world coordinates
       * */
-     cv::Point3f localizePoints(cv::Point2i);
+     cv::Point3f localizePoints(const cv::Point2i&) const;
 
      /**
       * @brief: Destructor
