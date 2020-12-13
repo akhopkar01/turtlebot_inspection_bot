@@ -16,7 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
 )
 
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 3.2.0 REQUIRED)
 
 catkin_package()
 
@@ -31,7 +31,7 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-add_executable(detector src/main.cpp src/turtlebotDetector.cpp)
+add_executable(detector src/detectorNode.cpp src/turtlebotDetector.cpp)
 
 add_executable(mover src/moverNode.cpp src/turtlebotMover.cpp)
 
