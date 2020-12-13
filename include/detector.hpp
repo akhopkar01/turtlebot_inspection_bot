@@ -53,7 +53,7 @@ class AnomalyDetector {
      * @param: Intrinsic Parameter const reference
      * @return: None
      * */
-     AnomalyDetector(const cv::Matx34f&, const cv::Matx33f&);
+     AnomalyDetector(ros::NodeHandle&);
      
      /**
       * @brief: Get Image from ROS Image to CV image using cv_bridge
@@ -67,7 +67,7 @@ class AnomalyDetector {
       * @param: Image frame CV
       * @return: Point in image frame
       * */
-     cv::Point2i detectAnomaly(cv::Mat);
+     cv::Point2i detectAnomaly();
 
      /**
       * @brief: Convert the image coordinates to 3D world coordinates
@@ -86,18 +86,27 @@ class AnomalyDetector {
     private:
     // ROS Node
      ros::NodeHandle nh_;
-     // Subscribe to ROS image
-     ros::Subscriber imgSub_;
+
+     // Create instance of image transport
+     // Subscribe image
+     image_transport::ImageTransport it_;
+     image_transport::Subscriber subImg_;
+     
      // Publish to coordinates to topic
      ros::Publisher pub_;
+     
      // Store converted CV images and Mask images
      cv::Mat cvImg_, maskImg_;
+     
      // Image Coordinates
      cv::Point2i imgCoords_;
+     
      // 3D world coordinates
-     cv::Point3f worldCoords_;
+     cv::Point3f robotCoords_;
+     
      // camera calibration
      cv::Matx34f P_;
+     
      // flag to detect anomaly
      bool anomalyDetected_;
 };
