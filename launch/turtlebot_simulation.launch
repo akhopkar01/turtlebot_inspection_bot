@@ -13,5 +13,4 @@
 		args="-a -O $(find turtlebot_inspection_bot)/results/turtlebot_inspection_bot.bag -x /camera/(.*)"
 		if="$(arg record)"
 	/>
-
 </launch>
