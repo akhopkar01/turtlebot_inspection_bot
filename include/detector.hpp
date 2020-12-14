@@ -90,6 +90,9 @@ class AnomalyDetector {
    * */
   ~AnomalyDetector();
 
+  // Store converted CV images
+  cv::Mat cvImg_;
+
  private:
   // ROS Node
   ros::NodeHandle nh_;
@@ -100,7 +103,7 @@ class AnomalyDetector {
   // Publish to coordinates to topic
   ros::Publisher pub_;
   // Store converted CV images and Mask images;
-  cv::Mat cvImg_, maskImg_;
+  cv::Mat maskImg_;
   // Image Coordinates
   cv::Point2i imgCoords_;
   // camera calibration
