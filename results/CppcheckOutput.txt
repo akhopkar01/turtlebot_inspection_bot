@@ -1,6 +1,5 @@
 command used: cppcheck --enable=all --std=c++11 -I include/ --suppress=missingIncludeSystem $( find . -name *.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e"^./cmake-build-debug" ) >> results/CppcheckOutput.txt
 
-
 Checking src/det.cpp ...
 1/8 files checked 0% done
 Checking src/detectorNode.cpp ...
