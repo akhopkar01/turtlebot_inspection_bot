@@ -2,8 +2,8 @@
 	<arg name="record" default="false"/>
 	<include file="$(find turtlebot_inspection_bot)/launch/turtlebot_world.launch"></include>
 
-	<node pkg="turtlebot_inspection_bot" name="mover" type="mover" output="screen" launch-prefix="gnome-terminal --command"/>
-	<node pkg="turtlebot_inspection_bot" name="detector" type="detector" output="screen" launch-prefix="gnome-terminal --command"/>
+	<node pkg="turtlebot_inspection_bot" name="mover" type="mover" output="screen"/>
+	<node pkg="turtlebot_inspection_bot" name="detector" type="detector" output="screen"/>
 
 	<!--rosbag functionality-->
 	<node
