@@ -54,9 +54,23 @@ target_link_libraries(mover
 #############
 if(CATKIN_ENABLE_TESTING)
  find_package(rostest REQUIRED)
- add_rostest_gtest(testRobot test/main.cpp test/detectorTest.cpp test/moverTest.cpp)
- target_link_libraries(testRobot ${catkin_LIBRARIES})
- add_dependencies(testRobot ${catkin_EXPORTED_TARGETS})
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
+ add_rostest_gtest(testRobot
+         test/test.launch
+         test/main.cpp
+         test/detectorTest.cpp
+         test/moverTest.cpp
+         src/turtlebotDetector.cpp
+         src/turtlebotMover.cpp)
+
+ target_link_libraries(testRobot
+         ${catkin_LIBRARIES}
+         ${OpenCV_LIBS})
+
+ add_dependencies(testRobot
+#         detector_test
+#         mover_test
+         ${catkin_EXPORTED_TARGETS})
 endif()
 
 
