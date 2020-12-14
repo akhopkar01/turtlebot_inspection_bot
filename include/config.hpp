@@ -40,5 +40,9 @@ SOFTWARE.
 
 #include <opencv2/opencv.hpp>
 
-static cv::Matx33f intP{201.7596, 0.0, 153.323, 0.0, 202.569335, 102.875, 0.0, 0.0, 1.0};
-static cv::Matx34f extP{0, 0, 1, -1, 1, 0, 0, 0, 0, 1, 0, 1};
+static cv::Matx33f intP{201.7596, 0.0, 153.323,
+                        0.0, 202.569335, 102.875,
+                        0.0, 0.0, 1.0};
+static cv::Matx34f extP{0, 0, 1, -1,
+                        1, 0, 0, 0,
+                        0, 1, 0, 1};

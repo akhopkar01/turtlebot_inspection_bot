@@ -38,72 +38,73 @@ SOFTWARE.
 
 #pragma once
 
-#include <vector>
 #include <ros/ros.h>
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/Image.h>
+#include <vector>
 #include <opencv2/opencv.hpp>
 
 class AnomalyDetector {
-    public:
-    /**
-     * @brief: Constructor for Anomaly Detector Node
-     * @param: Extrinsic Parameter const reference
-     * @param: Intrinsic Parameter const reference
-     * @return: None
-     * */
-     AnomalyDetector(ros::NodeHandle&);
+ public:
+  /**
+   * @brief: Constructor for Anomaly Detector Node
+   * @param: Extrinsic Parameter const reference
+   * @param: Intrinsic Parameter const reference
+   * @return: None
+   * */
+  explicit AnomalyDetector(ros::NodeHandle&);
 
-     /**
-      * @brief: Get Image from ROS Image to CV image using cv_bridge
-      * @param: Image reference to const pointer 
-      * @return: None
-      * */
-     void imgCallback(const sensor_msgs::Image::ConstPtr& msg);
+  /**
+   * @brief: Gateway function to detect anomalies
+   * @param: None
+   * @return: None
+   * */
+  void detectAnomaly();
 
-     /**
-      * @brief: Detect anomalies using color mask technique
-      * @param: Image frame CV
-      * @return: Point in image frame
-      * */
-     void getImgPoints();
+  /**
+   * @brief: Get Image from ROS Image to CV image using cv_bridge
+   * @param: Image reference to const pointer
+   * @return: None
+   * */
+  void imgCallback(const sensor_msgs::Image::ConstPtr& msg);
 
-     /**
-      * @brief: Convert the image coordinates to 3D world coordinates
-      * @param: 2D Image coordinates
-      * @return: 3D world coordinates
-      * */
-     cv::Point3f localizePoints() const;
+  /**
+   * @brief: Detect anomalies using color mask technique
+   * @param: Image frame CV
+   * @return: Point in image frame
+   * */
+  void getImgPoints();
 
-     /**
-      * @brief: Destructor
-      * @param: None
-      * @return: None
-      * */
-     ~AnomalyDetector();
+  /**
+   * @brief: Convert the image coordinates to 3D world coordinates
+   * @param: 2D Image coordinates
+   * @return: 3D world coordinates
+   * */
+  cv::Point3f localizePoints() const;
 
-    private:
-    // ROS Node
-     ros::NodeHandle nh_;
+  /**
+   * @brief: Destructor
+   * @param: None
+   * @return: None
+   * */
+  ~AnomalyDetector();
 
-     // Create instance of image transport
-     // Subscribe image
-     image_transport::ImageTransport it_;
-     image_transport::Subscriber subImg_;
-     
-     // Publish to coordinates to topic
-     ros::Publisher pub_;
-     
-     // Store converted CV images and Mask images;
-     cv::Mat cvImg_, maskImg_;
-
-     // Image Coordinates
-     cv::Point2i imgCoords_;
-     
-     // camera calibration
-     cv::Matx34f P_;
-
-     // Flag to check if anomaly is detected
-     bool anomalyDetected_;
+ private:
+  // ROS Node
+  ros::NodeHandle nh_;
+  // Create instance of image transport
+  // Subscribe image
+  image_transport::ImageTransport it_;
+  image_transport::Subscriber subImg_;
+  // Publish to coordinates to topic
+  ros::Publisher pub_;
+  // Store converted CV images and Mask images;
+  cv::Mat cvImg_, maskImg_;
+  // Image Coordinates
+  cv::Point2i imgCoords_;
+  // camera calibration
+  cv::Matx34f P_;
+  // Flag to check if anomaly is detected
+  bool anomalyDetected_;
 };

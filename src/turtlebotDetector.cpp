@@ -57,29 +57,36 @@ AnomalyDetector::AnomalyDetector(ros::NodeHandle& nh) : it_(nh) {
 AnomalyDetector::~AnomalyDetector() { cv::destroyAllWindows(); }
 
 /**
+ * @brief: Detection definition
+ * */
+void AnomalyDetector::detectAnomaly() {
+  getImgPoints();
+  // If anomaly is detected
+  if (anomalyDetected_) {
+    cv::Point3f robotCoords = localizePoints();
+    ROS_WARN_STREAM("Anomaly Detected at: " << robotCoords);
+  } else {
+    ROS_INFO_STREAM("Exploring..");
+  }
+  cv::imshow("Turtlebot Viewer", cvImg_);
+  cv::waitKey(3);
+}
+
+/**
  * @brief: Callback function definition
  * */
-void AnomalyDetector::imgCallback(const 
-                        sensor_msgs::Image::ConstPtr& msg) {
+void AnomalyDetector::imgCallback(const
+                       sensor_msgs::Image::ConstPtr& msg) {
   cv_bridge::CvImagePtr cvPtr;
   try {
+    // Convert ROS image to OpenCV image
     cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     cvImg_ = cvPtr->image;
+    // Check if image is empty
     if (cvImg_.empty()) {
       ROS_ERROR_STREAM("No callback received, Waiting..");
-    }
-    else {
-      getImgPoints();
-      // If anomaly is detected
-      if (anomalyDetected_) {       
-        cv::Point3f robotCoords = localizePoints();
-        ROS_WARN_STREAM("Anomaly Detected at: " << robotCoords);
-      }
-      else {
-        ROS_INFO_STREAM("Exploring..");
-      }
-      cv::imshow("Turtlebot Viewer", cvImg_);
-      cv::waitKey(3);
+    } else {
+      detectAnomaly();
     }
   }
   catch(cv_bridge::Exception& exc) {
@@ -89,28 +96,25 @@ void AnomalyDetector::imgCallback(const
 }
 
 /**
- * @brief: Detection method definiton
+ * @brief: Get image points from the image
  * */
 void AnomalyDetector::getImgPoints() {
   imgCoords_ = cv::Point2i(0, 0);
-  // Perform Image processing color recognition
-  // Detect centroid of the recognition
-
   anomalyDetected_ = false;
   cv::Mat hsvImg;
 
   // Convert image to HSV
   cv::cvtColor(cvImg_, hsvImg, cv::COLOR_BGR2HSV);
-  
+
   // Set threshold to detect green
   // Create a thresholded mask
   cv::Scalar greenLo(35, 40, 40);
   cv::Scalar greenHi(86, 255, 255);
   cv::inRange(hsvImg, greenLo, greenHi, maskImg_);
-  
+
   // Morphological operations opening
   cv::erode(maskImg_, maskImg_,
-          cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3,3)));
+          cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3)));
   cv::dilate(maskImg_, maskImg_,
           cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3)));
 
@@ -118,8 +122,8 @@ void AnomalyDetector::getImgPoints() {
   cv::dilate(maskImg_, maskImg_,
           cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3)));
   cv::erode(maskImg_, maskImg_,
-          cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3,3)));
-  
+           cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3)));
+
   // Find centroid of the image
   cv::Moments moments_ = cv::moments(maskImg_);
   double M01{moments_.m01}, M10{moments_.m10};
@@ -149,14 +153,14 @@ void AnomalyDetector::getImgPoints() {
 /**
  * @brief: get robot frame coordinates definition 
  * */
-cv::Point3f AnomalyDetector::localizePoints() const{
+cv::Point3f AnomalyDetector::localizePoints() const {
   // Perform geometric transformation
   cv::Matx31f robotPoints;
-  cv::Matx33f H{P_(0, 0), P_(0, 1), P_(0, 3), 
-                P_(1, 0), P_(1, 1), P_(1, 3), 
+  cv::Matx33f H{P_(0, 0), P_(0, 1), P_(0, 3),
+                P_(1, 0), P_(1, 1), P_(1, 3),
                 P_(2, 0), P_(2, 1), P_(2, 3)};
   cv::Matx31f pixel{static_cast<float>(imgCoords_.x),
-                    static_cast<float>(imgCoords_.y), 
+                    static_cast<float>(imgCoords_.y),
                     1};
   robotPoints = H.inv() * pixel;
   float w = robotPoints(2);
