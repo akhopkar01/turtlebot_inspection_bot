@@ -40,7 +40,6 @@ target_link_libraries(detector
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
-
 target_link_libraries(mover
         ${catkin_LIBRARIES}
         ${OpenCV_LIBS}
