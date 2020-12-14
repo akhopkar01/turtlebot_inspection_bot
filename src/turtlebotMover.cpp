@@ -50,7 +50,10 @@ TurtlebotMover::TurtlebotMover() {
     subLaserScanner = nh.subscribe<sensor_msgs::LaserScan>
             ("/scan", 1000,
              &TurtlebotMover::scanEnvCallback, this);
-    sub_odometry = nh.subscribe<nav_msgs::Odometry>("odom", 1, &TurtlebotMover::odomCallback,this);
+    sub_odometry = nh.subscribe<nav_msgs::Odometry>
+            ("odom", 1, &TurtlebotMover::odomCallback, this);
+    getVel = nh.subscribe<geometry_msgs::Twist>
+            ("/cmd_vel", 10, &TurtlebotMover::velocityCallback, this);
 
     /*
      * @brief Initialize the linear and angular velocities
@@ -62,7 +65,6 @@ TurtlebotMover::TurtlebotMover() {
     velMsg.angular.x = 0.0;
     velMsg.angular.y = 0.0;
     velMsg.angular.z = 0.0;
-
     /*
      * @brief Publish the initial velocities for the Turtlebot.
      */
@@ -75,6 +77,19 @@ TurtlebotMover::TurtlebotMover() {
     isObstacle = false;
     obstacleThresh = 1.0;
     newDirection = "Right";
+    linX = 0.0;
+    angZ = 0.0;
+}
+/*
+ * @ brief Callback service to get the current velocity of the turtlebot
+ * from the environment.
+ * @ param vel: Pointer for velocity from the Twist sensor.
+ * @ return none.
+ */
+void TurtlebotMover::velocityCallback(const geometry_msgs::
+                                        Twist::ConstPtr& vel) {
+    linX = vel->linear.x;
+    angZ = vel->angular.z;
 }
 /*
  *  @brief Callback service to get the live pose of the turtlebot
@@ -86,7 +101,7 @@ void TurtlebotMover::odomCallback(const nav_msgs::Odometry::ConstPtr& msg) {
     // linear position
     current_pose.x = msg->pose.pose.position.x;
     current_pose.y = msg->pose.pose.position.y;
-    ROS_INFO("Got a transform! x = %f, y = %f",current_pose.x,current_pose.y);
+    ROS_INFO("Got a transform! x = %f, y = %f", current_pose.x, current_pose.y);
 }
 
 /*
@@ -98,7 +113,8 @@ void TurtlebotMover::scanEnvCallback(const sensor_msgs::LaserScan::
                                                         ConstPtr& msg) {
     auto sensorRanges = msg->ranges;
     for (size_t i = 0; i <= _ANGLE_; ++i) {
-        if (sensorRanges[i] < obstacleThresh && sensorRanges[i + 299] < obstacleThresh) {
+        if (sensorRanges[i] < obstacleThresh &&
+            sensorRanges[i + 299] < obstacleThresh) {
             isObstacle = true;
             return;
         }
@@ -113,8 +129,10 @@ void TurtlebotMover::scanEnvCallback(const sensor_msgs::LaserScan::
  * @return bool value determining whether goal is reached or not.
  */
 bool TurtlebotMover::isGoalReached(geometry_msgs::Pose2D current_pose) {
-    if (current_pose.x > -1.0 && current_pose.x < 2.0 && current_pose.y > 1.0 && current_pose.y < 5.0 ) {
-        ROS_INFO("Goal REACHED!!! x = %f, y = %f", current_pose.x, current_pose.y);
+    if (current_pose.x > -1.0 && current_pose.x < 2.0 &&
+            current_pose.y > 1.0 && current_pose.y < 5.0) {
+        ROS_INFO("Goal REACHED!!! x = %f, y = %f",
+                 current_pose.x, current_pose.y);
         return true;
     } else {
         return false;
@@ -143,12 +161,14 @@ void TurtlebotMover::setObstacle(bool obstacle) {
  * @param newDirection: std::string indicating new direction.
  * @return none.
  */
-double TurtlebotMover::changeDirection(std::string newDirection) {
+double TurtlebotMover::changeDirection(const std::string &newDirection) {
     double angularVelocity = 0.0;
-    if(newDirection=="Right" || newDirection == "RIGHT" || newDirection=="R" || newDirection=="right") {
+    if (newDirection == "Right" || newDirection == "RIGHT" ||
+        newDirection == "R" || newDirection == "right") {
         angularVelocity = -0.8;
         return angularVelocity;
-    } else if(newDirection=="Left" || newDirection == "LEFT" || newDirection=="L" || newDirection=="left") {
+    } else if (newDirection == "Left" || newDirection == "LEFT" ||
+        newDirection == "L" || newDirection == "left") {
         angularVelocity = 0.8;
         return angularVelocity;
     } else {
@@ -162,10 +182,14 @@ double TurtlebotMover::changeDirection(std::string newDirection) {
  * @param none.
  * @return none.
  */
-void TurtlebotMover::moveRobot() {
+void TurtlebotMover::moveRobot(bool TEST) {
     ros::Rate loop(10);
-
+    int count = 0;
     while (ros::ok()) {
+        count += 1;
+        if (TEST == true) {
+            if (count >= 10) return;
+        }
         isGoal = isGoalReached(current_pose);
         if (isGoal) {
             ROS_INFO_STREAM("Exiting Program.....");
