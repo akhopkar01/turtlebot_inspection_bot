@@ -54,7 +54,7 @@ class AnomalyDetector {
      * @return: None
      * */
      AnomalyDetector(ros::NodeHandle&);
-     
+
      /**
       * @brief: Get Image from ROS Image to CV image using cv_bridge
       * @param: Image reference to const pointer 
@@ -67,14 +67,14 @@ class AnomalyDetector {
       * @param: Image frame CV
       * @return: Point in image frame
       * */
-     cv::Point2i detectAnomaly();
+     void getImgPoints();
 
      /**
       * @brief: Convert the image coordinates to 3D world coordinates
       * @param: 2D Image coordinates
       * @return: 3D world coordinates
       * */
-     cv::Point3f localizePoints(const cv::Point2i&) const;
+     cv::Point3f localizePoints() const;
 
      /**
       * @brief: Destructor
@@ -82,6 +82,13 @@ class AnomalyDetector {
       * @return: None
       * */
      ~AnomalyDetector();
+     
+     // Converted image ROS->OpenCV
+     cv::Mat cvImg_;
+     
+     // Flag to check if anomaly is detected
+     bool anomalyDetected_;
+
 
     private:
     // ROS Node
@@ -95,18 +102,12 @@ class AnomalyDetector {
      // Publish to coordinates to topic
      ros::Publisher pub_;
      
-     // Store converted CV images and Mask images
-     cv::Mat cvImg_, maskImg_;
-     
+     // Store converted CV images and Mask images;
+     cv::Mat maskImg_;
+
      // Image Coordinates
      cv::Point2i imgCoords_;
      
-     // 3D world coordinates
-     cv::Point3f robotCoords_;
-     
      // camera calibration
      cv::Matx34f P_;
-     
-     // flag to detect anomaly
-     bool anomalyDetected_;
 };

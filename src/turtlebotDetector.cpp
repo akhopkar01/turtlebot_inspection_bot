@@ -48,11 +48,11 @@
  * */
 AnomalyDetector::AnomalyDetector(ros::NodeHandle& nh) : it_(nh) {
   P_ = intP * extP;
+  imgCoords_ = cv::Point2i(0, 0);
   cv::namedWindow("Turtlebot Viewer");
   anomalyDetected_ = false;
   subImg_ = it_.subscribe("/camera/rgb/image_raw", 1,
                           &AnomalyDetector::imgCallback, this);
-  ros::spin();
 }
 
 AnomalyDetector::~AnomalyDetector() { cv::destroyAllWindows(); }
@@ -66,21 +66,6 @@ void AnomalyDetector::imgCallback(const
   try {
     cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     cvImg_ = cvPtr->image;
-    if (cvImg_.empty()) {
-      ROS_ERROR_STREAM("Cannot detect CV Image!");
-    }
-    else {
-      imgCoords_ = detectAnomaly();
-      if (anomalyDetected_) {       
-        robotCoords_ = localizePoints(imgCoords_);
-        ROS_WARN_STREAM("Anomaly Detected at: " << robotCoords_);
-      }
-      else {
-        ROS_INFO_STREAM("Exploring!");
-      }
-      cv::imshow("Turtlebot Viewer", cvImg_);
-      cv::waitKey(3);
-    }
   }
   catch(cv_bridge::Exception& exc) {
     ROS_ERROR_STREAM("CV Bridge Exception " << exc.what());
@@ -91,8 +76,8 @@ void AnomalyDetector::imgCallback(const
 /**
  * @brief: Detection method definiton
  * */
-cv::Point2i AnomalyDetector::detectAnomaly() {
-  cv::Point2i dummy{0, 0};
+void AnomalyDetector::getImgPoints() {
+  imgCoords_ = cv::Point2i(0, 0);
   // Perform Image processing color recognition
   // Detect centroid of the recognition
 
@@ -136,28 +121,27 @@ cv::Point2i AnomalyDetector::detectAnomaly() {
     bounding_rect = cv::boundingRect(contours[0]);
     int posX = M10 / Area;
     int posY = M01 / Area;
-    dummy.x = posX;
-    dummy.y = posY;
-    cv::putText(cvImg_, "Anomaly", cv::Point2i(posX, posY + 20),
+    imgCoords_.x = posX;
+    imgCoords_.y = posY;
+    cv::putText(cvImg_, "Anomaly", cv::Point2i(posX - 20, posY + 20),
                 cv::FONT_HERSHEY_SIMPLEX, 0.8, COLOR_);
-    cv::circle(cvImg_, cv::Point2i(posX, posY), 2, COLOR_, cv::FILLED);
     cv::rectangle(cvImg_, bounding_rect, COLOR_);
     anomalyDetected_ = true;
   }
-  return dummy;
+  return;
 }
 
 /**
  * @brief: get robot frame coordinates definition 
  * */
-cv::Point3f AnomalyDetector::localizePoints(const cv::Point2i& imgCoords) const{
+cv::Point3f AnomalyDetector::localizePoints() const{
   // Perform geometric transformation
   cv::Matx31f robotPoints;
   cv::Matx33f H{P_(0, 0), P_(0, 1), P_(0, 3), 
                 P_(1, 0), P_(1, 1), P_(1, 3), 
                 P_(2, 0), P_(2, 1), P_(2, 3)};
-  cv::Matx31f pixel{static_cast<float>(imgCoords.x),
-                    static_cast<float>(imgCoords.y), 
+  cv::Matx31f pixel{static_cast<float>(imgCoords_.x),
+                    static_cast<float>(imgCoords_.y), 
                     1};
   robotPoints = H.inv() * pixel;
   float w = robotPoints(2);
