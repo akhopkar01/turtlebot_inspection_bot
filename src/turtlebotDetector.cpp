@@ -59,7 +59,7 @@ AnomalyDetector::~AnomalyDetector() { cv::destroyAllWindows(); }
 /**
  * @brief: Detection definition
  * */
-void AnomalyDetector::detectAnomaly() {
+void AnomalyDetector::detectAnomaly(bool TEST) {
   getImgPoints();
   // If anomaly is detected
   if (anomalyDetected_) {
@@ -68,8 +68,10 @@ void AnomalyDetector::detectAnomaly() {
   } else {
     ROS_INFO_STREAM("Exploring..");
   }
-  cv::imshow("Turtlebot Viewer", cvImg_);
-  cv::waitKey(3);
+  if (TEST == false) {
+    cv::imshow("Turtlebot Viewer", cvImg_);
+    cv::waitKey(3);
+  }
 }
 
 /**

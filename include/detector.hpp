@@ -60,7 +60,7 @@ class AnomalyDetector {
    * @param: None
    * @return: None
    * */
-  void detectAnomaly();
+  void detectAnomaly(bool TEST = false);
 
   /**
    * @brief: Get Image from ROS Image to CV image using cv_bridge
