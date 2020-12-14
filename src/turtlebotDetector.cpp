@@ -126,7 +126,6 @@ void AnomalyDetector::getImgPoints() {
 
   // Find centroid of the image
   cv::Moments moments_ = cv::moments(maskImg_);
-  double M01{moments_.m01}, M10{moments_.m10};
   double Area{moments_.m00};
 
   // Find contours to detect bounding box
@@ -138,8 +137,8 @@ void AnomalyDetector::getImgPoints() {
   if (Area >= 1000.f) {
     // Bounding Box
     bounding_rect = cv::boundingRect(contours[0]);
-    int posX = M10 / Area;
-    int posY = M01 / Area;
+    int posX = moments_.m10 / Area;
+    int posY = moments_.m01 / Area;
     imgCoords_.x = posX;
     imgCoords_.y = posY;
     cv::putText(cvImg_, "Anomaly", cv::Point2i(posX - 20, posY + 20),
