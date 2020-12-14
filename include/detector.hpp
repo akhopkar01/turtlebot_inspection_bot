@@ -82,13 +82,6 @@ class AnomalyDetector {
       * @return: None
       * */
      ~AnomalyDetector();
-     
-     // Converted image ROS->OpenCV
-     cv::Mat cvImg_;
-     
-     // Flag to check if anomaly is detected
-     bool anomalyDetected_;
-
 
     private:
     // ROS Node
@@ -103,11 +96,14 @@ class AnomalyDetector {
      ros::Publisher pub_;
      
      // Store converted CV images and Mask images;
-     cv::Mat maskImg_;
+     cv::Mat cvImg_, maskImg_;
 
      // Image Coordinates
      cv::Point2i imgCoords_;
      
      // camera calibration
      cv::Matx34f P_;
+
+     // Flag to check if anomaly is detected
+     bool anomalyDetected_;
 };

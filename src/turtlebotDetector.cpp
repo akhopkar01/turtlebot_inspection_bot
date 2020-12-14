@@ -48,7 +48,6 @@
  * */
 AnomalyDetector::AnomalyDetector(ros::NodeHandle& nh) : it_(nh) {
   P_ = intP * extP;
-  imgCoords_ = cv::Point2i(0, 0);
   cv::namedWindow("Turtlebot Viewer");
   anomalyDetected_ = false;
   subImg_ = it_.subscribe("/camera/rgb/image_raw", 1,
@@ -66,6 +65,22 @@ void AnomalyDetector::imgCallback(const
   try {
     cvPtr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     cvImg_ = cvPtr->image;
+    if (cvImg_.empty()) {
+      ROS_ERROR_STREAM("No callback received, Waiting..");
+    }
+    else {
+      getImgPoints();
+      // If anomaly is detected
+      if (anomalyDetected_) {       
+        cv::Point3f robotCoords = localizePoints();
+        ROS_WARN_STREAM("Anomaly Detected at: " << robotCoords);
+      }
+      else {
+        ROS_INFO_STREAM("Exploring..");
+      }
+      cv::imshow("Turtlebot Viewer", cvImg_);
+      cv::waitKey(3);
+    }
   }
   catch(cv_bridge::Exception& exc) {
     ROS_ERROR_STREAM("CV Bridge Exception " << exc.what());
