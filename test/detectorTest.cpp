@@ -35,31 +35,48 @@
  */
 
 #include <gtest/gtest.h>
-#include <vector>
 #include <ros/ros.h>
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/image_encodings.h>
+#include <vector>
 #include <opencv2/opencv.hpp>
 #include <detector.hpp>
 
-cv::Matx33f intP;
-cv::Matx34f extP;
-AnomalyDetector anomalydetector(extP, intP);
+
 /**
  * @brief Test to check the detectAnomaly method.
  */
 TEST(checkDetector, anomaly) {
-    cv::Mat frame = cv::imread("../sample.jpg", 0);
-    EXPECT_NO_FATAL_FAILURE(anomalydetector.detectAnomaly(frame));
+    ros::NodeHandle nh;
+    AnomalyDetector anomalydetector(nh);
+    cv::Mat img2 = cv::imread("/home/kartik/catkin_ws/src/"
+                              "turtlebot_inspection_bot/testImg.png");
+//    cv::Mat img2 = cv::imread("./testImg.png");
+    anomalydetector.cvImg_ = img2;
+    EXPECT_NO_FATAL_FAILURE(anomalydetector.getImgPoints());
 }
 /**
  * @ brief Test to check the localizePoints method of the class.
  */
 TEST(checkDetector, localizePoints) {
-    cv::Point2i pt(1,2);
-    cv::Point3f new_pt = anomalydetector.localizePoints(pt);
-    EXPECT_EQ(3,new_pt.x);
-    EXPECT_EQ(4, new_pt.y);
-    EXPECT_EQ(5, new_pt.z);
+    ros::NodeHandle nh;
+    AnomalyDetector anomalydetector(nh);
+    EXPECT_NO_FATAL_FAILURE(anomalydetector.localizePoints());
+}
+
+/**
+ * @ brief Test to check the localizePoints method of the class.
+ */
+TEST(checkDetector, detectAnomaly) {
+    ros::NodeHandle nh;
+    AnomalyDetector anomalydetector(nh);
+
+    cv::Mat img2 = cv::imread("/home/kartik/catkin_ws/"
+                              "src/turtlebot_inspection_bot/testImg.png");
+//    cv::Mat img2 = cv::imread("./testImg.png");
+    anomalydetector.cvImg_ = img2;
+    EXPECT_NO_FATAL_FAILURE(anomalydetector.getImgPoints());
+
+    EXPECT_NO_FATAL_FAILURE(anomalydetector.detectAnomaly());
 }
