@@ -45,7 +45,7 @@
 
 
 /**
- * @brief Test to check the detectAnomaly method.
+ * @brief Test to check the getImgPoints method.
  */
 TEST(checkDetector, anomaly) {
     ros::NodeHandle nh;
@@ -66,7 +66,7 @@ TEST(checkDetector, localizePoints) {
 }
 
 /**
- * @ brief Test to check the localizePoints method of the class.
+ * @ brief Test to check the detectAnomaly method of the class.
  */
 TEST(checkDetector, detectAnomaly) {
     ros::NodeHandle nh;
@@ -78,5 +78,5 @@ TEST(checkDetector, detectAnomaly) {
     anomalydetector.cvImg_ = img2;
     EXPECT_NO_FATAL_FAILURE(anomalydetector.getImgPoints());
 
-    EXPECT_NO_FATAL_FAILURE(anomalydetector.detectAnomaly());
+    EXPECT_NO_FATAL_FAILURE(anomalydetector.detectAnomaly(true));
 }
