@@ -32,6 +32,12 @@ We followed an Agile development process with TDD approach to develop the projec
 [![AIP](https://img.shields.io/badge/AIP-Click%20Here-red)](https://docs.google.com/spreadsheets/d/1gK6UU1C03G-Nt6Inuk5zHCRxUzo2bpcLRpkTf8MvC3I/edit?usp=sharing)
 [![SprintDoc](https://img.shields.io/badge/SprintDoc-Click%20Here-red)](https://docs.google.com/document/d/1NFZc3CICtRCiKvu_DC-juLE--KWvMurhhtYTClnU67w/edit?usp=sharing)
 
+## Project Demonstration and Presentation
+[![Presentation](https://img.shields.io/badge/AIP-Click%20Here-green)](https://drive.google.com/file/d/1rKyKeaj7__AZYH1FggYsRepB-CGkGnkJ/view?usp=sharing)
+[![DemoVideo](https://img.shields.io/badge/AIP-Click%20Here-green)](https://drive.google.com/file/d/1lKAOqqY6jtvYOdxs0ZVOnK9ceASdSPxW/view?usp=sharing)
+[![Slides](https://img.shields.io/badge/AIP-Click%20Here-green)](https://docs.google.com/presentation/d/1DKFuClv0wYsrBi0umdT-RRENfO7O2EHeqmnz29CQeoA/edit?usp=sharing)
+You can access Project Live Technical Presentation, Project Demo Video and Project Slides from these tags, respectively
+
 ## Dependencies
 
 ### Direct Dependencies
@@ -120,6 +126,29 @@ $ cd ~/catkin_ws
 $ source devel/setup.bash
 $ rostest turtlebot_inspection_bot test.launch
 ```
+## Doxygen
+To install doxygen run the following command:
+```
+$ sudo apt-get install doxygen
+```
+You can run the doxyfile in the package to generate files by the following command:
+```
+$ doxygen docs/Doxyfile
+```
+You can access the html file by
+```
+$ firefox docs/html/index.html
+```
+## Code Coverage (Locally)
+To test the code coverage of the package locally you may follow,
+```
+$ cd ~/catkin_ws/build 
+$ lcov --directory . --capture --output-file coverage.info
+$ lcov --remove coverage.info '/opt/*' '/usr/*' '*/devel/*' '*test_*' '*_test*' --output-file coverage.info 
+$ lcov --list coverage.info 
+$ genhtml coverage.info --output-directory covout
+```
+This creates index.html file in build/covout, which can be accessed
 
 ## Future Work
 In our succeeding versions, we intend to do the following:
