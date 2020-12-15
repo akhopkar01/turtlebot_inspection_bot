@@ -50,9 +50,7 @@
 TEST(checkDetector, anomaly) {
     ros::NodeHandle nh;
     AnomalyDetector anomalydetector(nh);
-//    cv::Mat img2 = cv::imread("/home/kartik/catkin_ws/src/"
-//                              "turtlebot_inspection_bot/testImg.png");
-    cv::Mat img2 = cv::imread("./testImg.png");
+    cv::Mat img2(500, 1000, CV_8UC3, cv::Scalar(0,255, 0));
     anomalydetector.cvImg_ = img2;
     EXPECT_NO_FATAL_FAILURE(anomalydetector.getImgPoints());
 }
@@ -71,10 +69,7 @@ TEST(checkDetector, localizePoints) {
 TEST(checkDetector, detectAnomaly) {
     ros::NodeHandle nh;
     AnomalyDetector anomalydetector(nh);
-
-//    cv::Mat img2 = cv::imread("/home/kartik/catkin_ws/"
-//                              "src/turtlebot_inspection_bot/testImg.png");
-    cv::Mat img2 = cv::imread("./testImg.png");
+    cv::Mat img2(500, 1000, CV_8UC3, cv::Scalar(0,255, 0));
     anomalydetector.cvImg_ = img2;
     EXPECT_NO_FATAL_FAILURE(anomalydetector.getImgPoints());
 
