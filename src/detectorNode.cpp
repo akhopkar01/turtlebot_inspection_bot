@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
   ros::init(argc, argv, "detector");
   ros::NodeHandle n;
   // Node instance
+  cv::namedWindow("Turtlebot Viewer");
   AnomalyDetector detector(n);
   ros::spin();
   return 0;
