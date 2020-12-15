@@ -9,8 +9,9 @@ Anomalies in any workplace is considered unwanted and risky in nature. Such work
 
 In this project, we developed a real time inspection robot using TurtleBot 3. 
 We have created an executable ROS package (ROS Melodic) which autonomously navigates the turtlebot in the environment while detecting anomalies by detecting the anomaly color. Thus, the project leverages the idea of greedily recognizing the anomaly color (in this case green) in an environment with red colored objects which resemble properly working objects/machines. In this version of the project, the robot can only recognize the color of the workplace objects. We demonstrate our implementation in a Gazebo Simulation environment with RVIZ. The robot when identifies an anomaly, suggests the coordinates of the anomaly with respect to the robot coordinate frame in real-time. <br>
-
-We followed an Agile development process with TDD approach to develop the project in 3 sprints. This README provides a walk-through for our project with installation steps and execution steps.  
+![Fig1. Anomaly Detection](https://github.com/kartikv97/turtlebot_inspection_bot/blob/dev/media/anomaly%20detection.png)
+We followed an Agile development process with TDD approach to develop the project in 3 sprints. This README provides a walk-through for our project with installation steps and execution steps.
+![Gif. Product Demo](https://github.com/kartikv97/turtlebot_inspection_bot/blob/dev/media/DemoVideo.gif)
 
 ## Authors
 * **Kartik Venkat :** M.Eng Robotics, UMD | B.Eng Electronics and Telecommunication Engineering, University of Mumbai.
@@ -33,9 +34,9 @@ We followed an Agile development process with TDD approach to develop the projec
 [![SprintDoc](https://img.shields.io/badge/SprintDoc-Click%20Here-red)](https://docs.google.com/document/d/1NFZc3CICtRCiKvu_DC-juLE--KWvMurhhtYTClnU67w/edit?usp=sharing)
 
 ## Project Demonstration and Presentation
-[![Presentation](https://img.shields.io/badge/AIP-Click%20Here-green)](https://drive.google.com/file/d/1rKyKeaj7__AZYH1FggYsRepB-CGkGnkJ/view?usp=sharing)
-[![DemoVideo](https://img.shields.io/badge/AIP-Click%20Here-green)](https://drive.google.com/file/d/1lKAOqqY6jtvYOdxs0ZVOnK9ceASdSPxW/view?usp=sharing)
-[![Slides](https://img.shields.io/badge/AIP-Click%20Here-green)](https://docs.google.com/presentation/d/1DKFuClv0wYsrBi0umdT-RRENfO7O2EHeqmnz29CQeoA/edit?usp=sharing)
+[![Presentation](https://img.shields.io/badge/Presentation-Click%20Here-red)](https://drive.google.com/file/d/1rKyKeaj7__AZYH1FggYsRepB-CGkGnkJ/view?usp=sharing)
+[![DemoVideo](https://img.shields.io/badge/DemoVideo-Click%20Here-red)](https://drive.google.com/file/d/1lKAOqqY6jtvYOdxs0ZVOnK9ceASdSPxW/view?usp=sharing)
+[![Slides](https://img.shields.io/badge/Slides-Click%20Here-red)](https://docs.google.com/presentation/d/1DKFuClv0wYsrBi0umdT-RRENfO7O2EHeqmnz29CQeoA/edit?usp=sharing)
 You can access Project Live Technical Presentation, Project Demo Video and Project Slides from these tags, respectively
 
 ## Dependencies
@@ -78,7 +79,7 @@ Gazebo and RVIZ packages are used by this package for visualization. Refer the f
 $ export TURTLEBOT3_MODEL=waffle_pi
 $ roslaunch turtlebot_inspection_bot turtlebot_simulation.launch
 ```
-"insert visualization output here"
+![Fig2. Visualization Window](https://github.com/kartikv97/turtlebot_inspection_bot/blob/dev/media/visualization_ros.png)
 
 ### rosbag
 This package is ```rosbag``` compliant. The bag file can be accessed from results/turtlebot_inspection_bot.bag. You may inspect the bag file by the command ```rosbag info results/*.bag```. The bag file has a 46 seconds long recorded simulation of the package. You may use the bag file to play the simulation results by operating the following commands in three terminals simultaneously:
