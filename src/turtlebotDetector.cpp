@@ -48,7 +48,7 @@
  * */
 AnomalyDetector::AnomalyDetector(ros::NodeHandle& nh) : it_(nh) {
   P_ = intP * extP;
-  cv::namedWindow("Turtlebot Viewer");
+  // cv::namedWindow("Turtlebot Viewer");
   anomalyDetected_ = false;
   subImg_ = it_.subscribe("/camera/rgb/image_raw", 1,
                           &AnomalyDetector::imgCallback, this);
