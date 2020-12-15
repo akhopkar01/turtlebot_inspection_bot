@@ -7,7 +7,7 @@
 
 Anomalies in any workplace is considered unwanted and risky in nature. Such workplaces may include a pharamceutical warehouse, a logistic warehouse or even a packaging warehouse. The anomalies can disrupt the setting of the workplace or may be the cause of something much more risky depending on the nature of these anomalies. For example, an unwanted substance in the pharmaceutical warehouse may result in a severe scare. This could even have damaging ramifications to the industry. This is the basis of our motivation for thi project. <br>
 
-In this project, we developed a real time anomaly detection robot for TurtleBot 3. 
+In this project, we developed a real time inspection robot using TurtleBot 3. 
 We have created an executable ROS package (ROS Melodic) which autonomously navigates the turtlebot in the environment while detecting anomalies by detecting the anomaly color. Thus, the project leverages the idea of greedily recognizing the anomaly color (in this case green) in an environment with red colored objects which resemble properly working objects/machines. In this version of the project, the robot can only recognize the color of the workplace objects. We demonstrate our implementation in a Gazebo Simulation environment with RVIZ. The robot when identifies an anomaly, suggests the coordinates of the anomaly with respect to the robot coordinate frame in real-time. <br>
 
 We followed an Agile development process with TDD approach to develop the project in 3 sprints. This README provides a walk-through for our project with installation steps and execution steps.  
@@ -96,6 +96,12 @@ $ rosbag play results/*.bag
 $ rqt_console
 ```
 
+The package also come with record functionality for rosbag. i.e., you can record your own rosbag for the package by first building the project and launching it as follows:
+```
+$ roslaunch turtlebot_inspection_bot turtlebot_simulation.launch record:=true
+```
+The result can be accessed in the results the directory. 
+
 ## Run ROS Test
 The package has Level 2 Unit Test compliance. You can run the ROS tests by following the following two options:
 
@@ -115,5 +121,11 @@ $ source devel/setup.bash
 $ rostest turtlebot_inspection_bot test.launch
 ```
 
-**NOTE:** To be resolved in Phase 3 Implementation. (currently Failing due to the stub implementations and inactive ROS Nodes)[]
+## Future Work
+In our succeeding versions, we intend to do the following:
+1. Robust navigation algorithm for the ```mover``` node: Treat this problem as a reactive planning problem to make it robust for any uncertain environment.
+2. Intelligent detection for the ```detector``` node: Employ a Deep Neural Network to detect known anomaly classes.
+3. Randomize Environment: Randomize spawning of the anomalies randomly in the environment
+4. Use transforms: Get the real world coordinates with respect to the world frame than the robot frame.
+
 **Note:** Press **ctrl+c** in the terminal to stop the program.
