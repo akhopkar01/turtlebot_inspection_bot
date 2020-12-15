@@ -1,0 +1,6 @@
+<map id="AnomalyDetector::getImgPoints" name="AnomalyDetector::getImgPoints">
+<area shape="rect" id="node2" href="$class_anomaly_detector.html#ac053d1b920d7cd4608bc3de291a7aeb0" title=": Gateway function to detect anomalies " alt="" coords="261,31,480,57"/>
+<area shape="rect" id="node5" href="$detector_test_8cpp.html#a125cce307e4fd7ea3a755068d31280ca" title="Test to check the getImgPoints method. " alt="" coords="343,81,399,108"/>
+<area shape="rect" id="node3" href="$class_anomaly_detector.html#a03f147d46834d55a0d1630d91afa1334" title=": Get Image from ROS Image to CV image using cv_bridge " alt="" coords="528,5,731,32"/>
+<area shape="rect" id="node4" href="$detector_test_8cpp.html#a148459d81bf7bc8ee757ec17cc6a02e2" title="TEST" alt="" coords="601,56,657,83"/>
+</map>

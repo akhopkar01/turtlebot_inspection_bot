@@ -1,0 +1,170 @@
+\hypertarget{class_anomaly_detector}{}\section{Anomaly\+Detector Class Reference}
+\label{class_anomaly_detector}\index{Anomaly\+Detector@{Anomaly\+Detector}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_anomaly_detector_af04ba43e876ab1c571da0a85e0091214}{Anomaly\+Detector} (ros\+::\+Node\+Handle \&)
+\begin{DoxyCompactList}\small\item\em \+: Constructor for Anomaly Detector Node \end{DoxyCompactList}\item 
+void \hyperlink{class_anomaly_detector_ac053d1b920d7cd4608bc3de291a7aeb0}{detect\+Anomaly} (bool \hyperlink{mover_test_8cpp_a623261ba51a174145109c15aadc6e5dd}{T\+E\+ST}=false)
+\begin{DoxyCompactList}\small\item\em \+: Gateway function to detect anomalies \end{DoxyCompactList}\item 
+void \hyperlink{class_anomaly_detector_a03f147d46834d55a0d1630d91afa1334}{img\+Callback} (const sensor\+\_\+msgs\+::\+Image\+::\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em \+: Get Image from R\+OS Image to CV image using cv\+\_\+bridge \end{DoxyCompactList}\item 
+void \hyperlink{class_anomaly_detector_aaaa09563dc7e8f76609b9e9b9e901dce}{get\+Img\+Points} ()
+\begin{DoxyCompactList}\small\item\em \+: Detect anomalies using color mask technique \end{DoxyCompactList}\item 
+cv\+::\+Point3f \hyperlink{class_anomaly_detector_aa97b11cf22fdd64d5f38e4d49025bda1}{localize\+Points} () const
+\begin{DoxyCompactList}\small\item\em \+: Convert the image coordinates to 3D world coordinates \end{DoxyCompactList}\item 
+\hyperlink{class_anomaly_detector_a290e2e224cc13e72e733697b1635da9b}{$\sim$\+Anomaly\+Detector} ()
+\begin{DoxyCompactList}\small\item\em \+: Destructor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_anomaly_detector_a1eee63d4b3d8fb5a6a0223249dca5e92}\label{class_anomaly_detector_a1eee63d4b3d8fb5a6a0223249dca5e92}} 
+cv\+::\+Mat {\bfseries cv\+Img\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_anomaly_detector_af04ba43e876ab1c571da0a85e0091214}\label{class_anomaly_detector_af04ba43e876ab1c571da0a85e0091214}} 
+\index{Anomaly\+Detector@{Anomaly\+Detector}!Anomaly\+Detector@{Anomaly\+Detector}}
+\index{Anomaly\+Detector@{Anomaly\+Detector}!Anomaly\+Detector@{Anomaly\+Detector}}
+\subsubsection{\texorpdfstring{Anomaly\+Detector()}{AnomalyDetector()}}
+{\footnotesize\ttfamily Anomaly\+Detector\+::\+Anomaly\+Detector (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{nh }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\+: Constructor for Anomaly Detector Node 
+
+\+: Detector class constructor definition
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_anomaly_detector_a290e2e224cc13e72e733697b1635da9b}\label{class_anomaly_detector_a290e2e224cc13e72e733697b1635da9b}} 
+\index{Anomaly\+Detector@{Anomaly\+Detector}!````~Anomaly\+Detector@{$\sim$\+Anomaly\+Detector}}
+\index{````~Anomaly\+Detector@{$\sim$\+Anomaly\+Detector}!Anomaly\+Detector@{Anomaly\+Detector}}
+\subsubsection{\texorpdfstring{$\sim$\+Anomaly\+Detector()}{~AnomalyDetector()}}
+{\footnotesize\ttfamily Anomaly\+Detector\+::$\sim$\+Anomaly\+Detector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\+: Destructor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_anomaly_detector_ac053d1b920d7cd4608bc3de291a7aeb0}\label{class_anomaly_detector_ac053d1b920d7cd4608bc3de291a7aeb0}} 
+\index{Anomaly\+Detector@{Anomaly\+Detector}!detect\+Anomaly@{detect\+Anomaly}}
+\index{detect\+Anomaly@{detect\+Anomaly}!Anomaly\+Detector@{Anomaly\+Detector}}
+\subsubsection{\texorpdfstring{detect\+Anomaly()}{detectAnomaly()}}
+{\footnotesize\ttfamily void Anomaly\+Detector\+::detect\+Anomaly (\begin{DoxyParamCaption}\item[{bool}]{T\+E\+ST = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+\+: Gateway function to detect anomalies 
+
+\+: Detection definition
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_anomaly_detector_ac053d1b920d7cd4608bc3de291a7aeb0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_anomaly_detector_ac053d1b920d7cd4608bc3de291a7aeb0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_anomaly_detector_aaaa09563dc7e8f76609b9e9b9e901dce}\label{class_anomaly_detector_aaaa09563dc7e8f76609b9e9b9e901dce}} 
+\index{Anomaly\+Detector@{Anomaly\+Detector}!get\+Img\+Points@{get\+Img\+Points}}
+\index{get\+Img\+Points@{get\+Img\+Points}!Anomaly\+Detector@{Anomaly\+Detector}}
+\subsubsection{\texorpdfstring{get\+Img\+Points()}{getImgPoints()}}
+{\footnotesize\ttfamily void Anomaly\+Detector\+::get\+Img\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\+: Detect anomalies using color mask technique 
+
+\+: Get image points from the image
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_anomaly_detector_aaaa09563dc7e8f76609b9e9b9e901dce_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_anomaly_detector_a03f147d46834d55a0d1630d91afa1334}\label{class_anomaly_detector_a03f147d46834d55a0d1630d91afa1334}} 
+\index{Anomaly\+Detector@{Anomaly\+Detector}!img\+Callback@{img\+Callback}}
+\index{img\+Callback@{img\+Callback}!Anomaly\+Detector@{Anomaly\+Detector}}
+\subsubsection{\texorpdfstring{img\+Callback()}{imgCallback()}}
+{\footnotesize\ttfamily void Anomaly\+Detector\+::img\+Callback (\begin{DoxyParamCaption}\item[{const sensor\+\_\+msgs\+::\+Image\+::\+Const\+Ptr \&}]{msg }\end{DoxyParamCaption})}
+
+
+
+\+: Get Image from R\+OS Image to CV image using cv\+\_\+bridge 
+
+\+: Callback function definition
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_anomaly_detector_a03f147d46834d55a0d1630d91afa1334_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_anomaly_detector_aa97b11cf22fdd64d5f38e4d49025bda1}\label{class_anomaly_detector_aa97b11cf22fdd64d5f38e4d49025bda1}} 
+\index{Anomaly\+Detector@{Anomaly\+Detector}!localize\+Points@{localize\+Points}}
+\index{localize\+Points@{localize\+Points}!Anomaly\+Detector@{Anomaly\+Detector}}
+\subsubsection{\texorpdfstring{localize\+Points()}{localizePoints()}}
+{\footnotesize\ttfamily cv\+::\+Point3f Anomaly\+Detector\+::localize\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\+: Convert the image coordinates to 3D world coordinates 
+
+\+: get robot frame coordinates definition
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_anomaly_detector_aa97b11cf22fdd64d5f38e4d49025bda1_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/detector.\+hpp\item 
+src/\hyperlink{turtlebot_detector_8cpp}{turtlebot\+Detector.\+cpp}\end{DoxyCompactItemize}

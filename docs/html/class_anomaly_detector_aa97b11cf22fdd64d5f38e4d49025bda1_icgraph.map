@@ -1,0 +1,6 @@
+<map id="AnomalyDetector::localizePoints" name="AnomalyDetector::localizePoints">
+<area shape="rect" id="node2" href="$class_anomaly_detector.html#ac053d1b920d7cd4608bc3de291a7aeb0" title=": Gateway function to detect anomalies " alt="" coords="228,31,447,57"/>
+<area shape="rect" id="node5" href="$detector_test_8cpp.html#a1bf00aedcb134f698281681c2439bf29" title="TEST" alt="" coords="309,81,365,108"/>
+<area shape="rect" id="node3" href="$class_anomaly_detector.html#a03f147d46834d55a0d1630d91afa1334" title=": Get Image from ROS Image to CV image using cv_bridge " alt="" coords="495,5,697,32"/>
+<area shape="rect" id="node4" href="$detector_test_8cpp.html#a148459d81bf7bc8ee757ec17cc6a02e2" title="TEST" alt="" coords="568,56,624,83"/>
+</map>

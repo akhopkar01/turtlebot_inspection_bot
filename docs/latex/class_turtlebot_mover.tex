@@ -1,0 +1,44 @@
+\hypertarget{class_turtlebot_mover}{}\section{Turtlebot\+Mover Class Reference}
+\label{class_turtlebot_mover}\index{Turtlebot\+Mover@{Turtlebot\+Mover}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_a0d0a5b8a08a572c068ec20a51d00b91d}\label{class_turtlebot_mover_a0d0a5b8a08a572c068ec20a51d00b91d}} 
+void {\bfseries velocity\+Callback} (const geometry\+\_\+msgs\+::\+Twist\+::\+Const\+Ptr \&vel)
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_a3ea420d241c35e583c2242593c2282f8}\label{class_turtlebot_mover_a3ea420d241c35e583c2242593c2282f8}} 
+void {\bfseries odom\+Callback} (const nav\+\_\+msgs\+::\+Odometry\+::\+Const\+Ptr \&msg)
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_aced70fbf3afb61894501fa3f825ce40c}\label{class_turtlebot_mover_aced70fbf3afb61894501fa3f825ce40c}} 
+void {\bfseries scan\+Env\+Callback} (const sensor\+\_\+msgs\+::\+Laser\+Scan\+::\+Const\+Ptr \&msg)
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_a4a62dd85e7bb74768270e458129702c2}\label{class_turtlebot_mover_a4a62dd85e7bb74768270e458129702c2}} 
+bool {\bfseries check\+Obstacle} ()
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_a07d1da1da224a125dab55cbc4dc11fcb}\label{class_turtlebot_mover_a07d1da1da224a125dab55cbc4dc11fcb}} 
+bool {\bfseries is\+Goal\+Reached} (geometry\+\_\+msgs\+::\+Pose2D current\+\_\+pose)
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_a75b47886fd146b5908a5eceae9577cd7}\label{class_turtlebot_mover_a75b47886fd146b5908a5eceae9577cd7}} 
+void {\bfseries set\+Obstacle} (bool obstacle)
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_ab0bc785e3718aafc52baba552dda3896}\label{class_turtlebot_mover_ab0bc785e3718aafc52baba552dda3896}} 
+double {\bfseries change\+Direction} (const std\+::string \&new\+Direction)
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_a56d7f676bbe756b6c1869636896257da}\label{class_turtlebot_mover_a56d7f676bbe756b6c1869636896257da}} 
+void {\bfseries move\+Robot} (bool \hyperlink{mover_test_8cpp_a623261ba51a174145109c15aadc6e5dd}{T\+E\+ST}=false)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_aeb87669e7e8e721525eb267a56e85c11}\label{class_turtlebot_mover_aeb87669e7e8e721525eb267a56e85c11}} 
+float {\bfseries linX}
+\item 
+\mbox{\Hypertarget{class_turtlebot_mover_aba1eb949c32fbda7627802d24a0e1ab4}\label{class_turtlebot_mover_aba1eb949c32fbda7627802d24a0e1ab4}} 
+float {\bfseries angZ}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{mover_8hpp}{mover.\+hpp}\item 
+src/\hyperlink{turtlebot_mover_8cpp}{turtlebot\+Mover.\+cpp}\end{DoxyCompactItemize}
