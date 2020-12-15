@@ -13,9 +13,10 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
+  nav_msgs
 )
 
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 3.2.0 REQUIRED)
 
 catkin_package()
 
@@ -30,16 +31,15 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-add_executable(detector src/main.cpp src/turtlebotDetector.cpp)
+add_executable(detector src/detectorNode.cpp src/turtlebotDetector.cpp)
 
-add_executable(mover src/main.cpp src/turtlebotMover.cpp)
+add_executable(mover src/moverNode.cpp src/turtlebotMover.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(detector
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
-
 target_link_libraries(mover
         ${catkin_LIBRARIES}
         ${OpenCV_LIBS}
@@ -53,9 +53,23 @@ target_link_libraries(mover
 #############
 if(CATKIN_ENABLE_TESTING)
  find_package(rostest REQUIRED)
- add_rostest_gtest(testRobot test/main.cpp test/detectorTest.cpp test/moverTest.cpp)
- target_link_libraries(testRobot ${catkin_LIBRARIES})
- add_dependencies(testRobot ${catkin_EXPORTED_TARGETS})
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
+ add_rostest_gtest(testRobot
+         test/test.launch
+         test/main.cpp
+         test/detectorTest.cpp
+         test/moverTest.cpp
+         src/turtlebotDetector.cpp
+         src/turtlebotMover.cpp)
+
+ target_link_libraries(testRobot
+         ${catkin_LIBRARIES}
+         ${OpenCV_LIBS})
+
+ add_dependencies(testRobot
+#         detector_test
+#         mover_test
+         ${catkin_EXPORTED_TARGETS})
 endif()
 
 

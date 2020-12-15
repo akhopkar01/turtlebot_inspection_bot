@@ -40,20 +40,25 @@
 #include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/Twist.h>
 #include <ros/ros.h>
+#include <nav_msgs/Odometry.h>
+#include <geometry_msgs/Pose2D.h>
 #include <iostream>
-
+#include <string>
 /*
  * @brief Mover class for TurtleBot
  *
  */
-
 
 class TurtlebotMover {
  private:
     geometry_msgs::Twist velMsg;
     ros::NodeHandle nh;
     ros::Publisher pubVel;
+    ros::Subscriber getVel;
     ros::Subscriber subLaserScanner;
+    ros::Subscriber sub_odometry;
+    geometry_msgs::Pose2D current_pose;
+    bool isGoal;
     bool isObstacle;
     double obstacleThresh;
     std::string newDirection;
@@ -65,6 +70,21 @@ class TurtlebotMover {
      */
     TurtlebotMover();
 
+    float linX, angZ;
+    /*
+     * @ brief Callback service to get the current velocity of the turtlebot
+     * from the environment.
+     * @ param vel: Pointer for velocity from the Twist sensor.
+     * @ return none.
+     */
+    void velocityCallback(const geometry_msgs::Twist::ConstPtr& vel);
+    /*
+     *  @brief Callback service to get the current pose of the turtlebot
+     *  from the environment
+     *  @param msg: Pointer to messages from Odometry sensor.
+     *  @return none.
+     */
+    void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
     /*
      * @brief Callback service to scan the environment for obstacles.
      * @param msg : Pointer for messages from the LaserScan sensor.
@@ -78,6 +98,13 @@ class TurtlebotMover {
      * @return bool value determining if obstacle is detected.
      */
     bool checkObstacle();
+    /*
+     * @brief Check if the turtlebot has reached the goal.
+     * @param current_pose: type Pose2D (stores current pose
+     * of the turtlebot.)
+     * @return bool value determining whether goal is reached or not.
+     */
+    bool isGoalReached(geometry_msgs::Pose2D current_pose);
 
     /*
      * @brief Sets the isObstacle flag indicating that there is an
@@ -92,14 +119,14 @@ class TurtlebotMover {
      * @param newDirection: std::string that indicates the new direction.
      * @return none.
      */
-    void changeDirection(std::string newDirection);
+    double changeDirection(const std::string &newDirection);
 
     /*
      * @brief Function that moves the TurtleBot in the environment.
-     * @param none.
+     * @param TEST = false.
      * @return none.
      */
-    void moveRobot();
+    void moveRobot(bool TEST = false);
 
     /*
      * @brief Destructor for the TurtlebotMover class
@@ -108,4 +135,4 @@ class TurtlebotMover {
 };
 
 
-#endif //INCLUDE_MOVER_HPP_
+#endif  // INCLUDE_MOVER_HPP_

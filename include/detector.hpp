@@ -38,66 +38,76 @@ SOFTWARE.
 
 #pragma once
 
-#include <vector>
 #include <ros/ros.h>
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/Image.h>
+#include <vector>
 #include <opencv2/opencv.hpp>
 
 class AnomalyDetector {
-    public:
-    /**
-     * @brief: Constructor for Anomaly Detector Node
-     * @param: Extrinsic Parameter const reference
-     * @param: Intrinsic Parameter const reference
-     * @return: None
-     * */
-     AnomalyDetector(const cv::Matx34f&, const cv::Matx33f&);
-     
-     /**
-      * @brief: Get Image from ROS Image to CV image using cv_bridge
-      * @param: Image reference to const pointer 
-      * @return: None
-      * */
-     void imgCallback(const sensor_msgs::Image::ConstPtr& msg);
+ public:
+  /**
+   * @brief: Constructor for Anomaly Detector Node
+   * @param: Extrinsic Parameter const reference
+   * @param: Intrinsic Parameter const reference
+   * @return: None
+   * */
+  explicit AnomalyDetector(ros::NodeHandle&);
 
-     /**
-      * @brief: Detect anomalies using color mask technique
-      * @param: Image frame CV
-      * @return: Point in image frame
-      * */
-     cv::Point2i detectAnomaly(cv::Mat);
+  /**
+   * @brief: Gateway function to detect anomalies
+   * @param: None
+   * @return: None
+   * */
+  void detectAnomaly(bool TEST = false);
 
-     /**
-      * @brief: Convert the image coordinates to 3D world coordinates
-      * @param: 2D Image coordinates
-      * @return: 3D world coordinates
-      * */
-     cv::Point3f localizePoints(cv::Point2i);
+  /**
+   * @brief: Get Image from ROS Image to CV image using cv_bridge
+   * @param: Image reference to const pointer
+   * @return: None
+   * */
+  void imgCallback(const sensor_msgs::Image::ConstPtr& msg);
 
-     /**
-      * @brief: Destructor
-      * @param: None
-      * @return: None
-      * */
-     ~AnomalyDetector();
+  /**
+   * @brief: Detect anomalies using color mask technique
+   * @param: Image frame CV
+   * @return: Point in image frame
+   * */
+  void getImgPoints();
 
-    private:
-    // ROS Node
-     ros::NodeHandle nh_;
-     // Subscribe to ROS image
-     ros::Subscriber imgSub_;
-     // Publish to coordinates to topic
-     ros::Publisher pub_;
-     // Store converted CV images and Mask images
-     cv::Mat cvImg_, maskImg_;
-     // Image Coordinates
-     cv::Point2i imgCoords_;
-     // 3D world coordinates
-     cv::Point3f worldCoords_;
-     // camera calibration
-     cv::Matx34f P_;
-     // flag to detect anomaly
-     bool anomalyDetected_;
+  /**
+   * @brief: Convert the image coordinates to 3D world coordinates
+   * @param: 2D Image coordinates
+   * @return: 3D world coordinates
+   * */
+  cv::Point3f localizePoints() const;
+
+  /**
+   * @brief: Destructor
+   * @param: None
+   * @return: None
+   * */
+  ~AnomalyDetector();
+
+  // Store converted CV images
+  cv::Mat cvImg_;
+
+ private:
+  // ROS Node
+  ros::NodeHandle nh_;
+  // Create instance of image transport
+  // Subscribe image
+  image_transport::ImageTransport it_;
+  image_transport::Subscriber subImg_;
+  // Publish to coordinates to topic
+  ros::Publisher pub_;
+  // Store converted CV images and Mask images;
+  cv::Mat maskImg_;
+  // Image Coordinates
+  cv::Point2i imgCoords_;
+  // camera calibration
+  cv::Matx34f P_;
+  // Flag to check if anomaly is detected
+  bool anomalyDetected_;
 };

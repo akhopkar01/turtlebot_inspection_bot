@@ -35,7 +35,7 @@ before_install:
   # Prepare rosdep to install dependencies.
   - sudo rosdep init
   - rosdep update
-
+  - export TURTLEBOT3_MODEL= waffle_pi
 
 # Create a catkin workspace with the package under integration.
 install:
@@ -88,4 +88,8 @@ after_success:
   - coveralls-lcov coverage.info
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - kartik97@terpmail.umd.edu
+    on_success: always # default: change
+on_failure: always

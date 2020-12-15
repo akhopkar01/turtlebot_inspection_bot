@@ -1,0 +1,12 @@
+Command Used: cpplint $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" -e"^./cmake-build-debug" ) >> results/CpplintOutput.txt
+
+Done processing ./include/config.hpp
+Done processing ./include/detector.hpp
+Done processing ./include/mover.hpp
+Done processing ./src/detectorNode.cpp
+Done processing ./src/moverNode.cpp
+Done processing ./src/turtlebotDetector.cpp
+Done processing ./src/turtlebotMover.cpp
+Done processing ./test/detectorTest.cpp
+Done processing ./test/main.cpp
+Done processing ./test/moverTest.cpp

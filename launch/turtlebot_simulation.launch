@@ -1,0 +1,16 @@
+<launch>
+	<arg name="record" default="false"/>
+	<include file="$(find turtlebot_inspection_bot)/launch/turtlebot_world.launch"></include>
+
+	<node pkg="turtlebot_inspection_bot" name="mover" type="mover" output="screen"/>
+	<node pkg="turtlebot_inspection_bot" name="detector" type="detector" output="screen" launch-prefix="gnome-terminal --command"/>
+
+	<!--rosbag functionality-->
+	<node
+		pkg="rosbag"
+		name="record"
+		type="record"
+		args="-a -O $(find turtlebot_inspection_bot)/results/turtlebot_inspection_bot.bag -x /camera/(.*)"
+		if="$(arg record)"
+	/>
+</launch>

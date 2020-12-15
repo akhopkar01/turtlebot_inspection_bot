@@ -1,0 +1,163 @@
+\href{https://travis-ci.org/kartikv97/turtlebot_inspection_bot}{\tt } \href{https://coveralls.io/github/kartikv97/turtlebot_inspection_bot?branch=master}{\tt } 
+
+ \subsection*{Overview}
+
+Anomalies in any workplace is considered unwanted and risky in nature. Such workplaces may include a pharamceutical warehouse, a logistic warehouse or even a packaging warehouse. The anomalies can disrupt the setting of the workplace or may be the cause of something much more risky depending on the nature of these anomalies. For example, an unwanted substance in the pharmaceutical warehouse may result in a severe scare. This could even have damaging ramifications to the industry. This is the basis of our motivation for thi project. ~\newline
+
+
+In this project, we developed a real time inspection robot using Turtle\+Bot 3. We have created an executable R\+OS package (R\+OS Melodic) which autonomously navigates the turtlebot in the environment while detecting anomalies by detecting the anomaly color. Thus, the project leverages the idea of greedily recognizing the anomaly color (in this case green) in an environment with red colored objects which resemble properly working objects/machines. In this version of the project, the robot can only recognize the color of the workplace objects. We demonstrate our implementation in a Gazebo Simulation environment with R\+V\+IZ. The robot when identifies an anomaly, suggests the coordinates of the anomaly with respect to the robot coordinate frame in real-\/time. ~\newline
+
+
+We followed an Agile development process with T\+DD approach to develop the project in 3 sprints. This R\+E\+A\+D\+ME provides a walk-\/through for our project with installation steps and execution steps.
+
+\subsection*{Authors}
+
+
+\begin{DoxyItemize}
+\item {\bfseries Kartik Venkat \+:} M.\+Eng Robotics, U\+MD $\vert$ B.\+Eng Electronics and Telecommunication Engineering, University of Mumbai.
+\item {\bfseries Kushagra Agrawal \+:} M.\+Eng Robotics, U\+MD $\vert$ B.\+Tech Mechanical Engineering, Manipal Institute of Technology.
+\item {\bfseries Aditya Khopkar \+:} M.\+Eng Robotics, U\+MD $\vert$ B.\+Eng Electronics Engineering, University of Mumbai
+\end{DoxyItemize}
+
+\subsubsection*{T\+O\+DO}
+
+
+\begin{DoxyItemize}
+\item Sprint Week 2
+\begin{DoxyItemize}
+\item \mbox{[}X\mbox{]} Create worlds/anomalies.\+world
+\item \mbox{[}X\mbox{]} Stub implementation
+\item \mbox{[}X\mbox{]} Unit tests
+\end{DoxyItemize}
+\item Sprint Week 3
+\begin{DoxyItemize}
+\item \mbox{[}X\mbox{]} Update worlds/anomalies.\+world to encode color information
+\item \mbox{[}X\mbox{]} Complete both Node Implementation
+\item \mbox{[}X\mbox{]} Verify that all Tests pass
+\item \mbox{[}X\mbox{]} Verify atleast 80\% Code Coverage
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsection*{A\+IP Document}
+
+\href{https://docs.google.com/spreadsheets/d/1gK6UU1C03G-Nt6Inuk5zHCRxUzo2bpcLRpkTf8MvC3I/edit?usp=sharing}{\tt } \href{https://docs.google.com/document/d/1NFZc3CICtRCiKvu_DC-juLE--KWvMurhhtYTClnU67w/edit?usp=sharing}{\tt }
+
+\subsection*{Dependencies}
+
+\subsubsection*{Direct Dependencies}
+
+
+\begin{DoxyEnumerate}
+\item \href{http://wiki.ros.org/melodic/Installation/Ubuntu}{\tt R\+OS Melodic}
+\item Ubuntu 18.\+04 L\+TS
+\item \href{https://answers.ros.org/question/293514/turtlebot-installation-on-ros-melodic/}{\tt T\+U\+R\+T\+L\+E\+B\+O\+T3}
+\end{DoxyEnumerate}
+
+\subsubsection*{Other Dependencies}
+
+
+\begin{DoxyEnumerate}
+\item catkin\+: Comes default with R\+O\+S-\/melodic installation
+\item Gazebo\+: Comes default with R\+O\+S-\/melodic installation
+\item Open\+CV 3.\+2.\+0\+: Comes default with Ubuntu-\/18.\+04 and R\+OS Melodic.
+\end{DoxyEnumerate}
+
+\subsubsection*{Package Dependencies}
+
+
+\begin{DoxyEnumerate}
+\item cv\+\_\+bridge
+\item geometry\+\_\+msgs
+\item image\+\_\+transport
+\item move\+\_\+base\+\_\+msgs
+\item roscpp
+\item sensor\+\_\+msgs
+\item std\+\_\+msgs
+\end{DoxyEnumerate}
+
+Install R\+OS melodic and setup catkin workspace by following this tutrial\+:
+\begin{DoxyEnumerate}
+\item \href{http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment}{\tt Link to R\+OS tutorial!}
+\end{DoxyEnumerate}
+
+\subsection*{Step 1 \+: Standard install via command-\/line}
+
+Follow the following steps for comprehensive installation guide of the package\+:
+
+
+\begin{DoxyCode}
+$ cd ~/catkin\_ws/src
+$ git clone --recursive https://github.com/kartikv97/turtlebot\_inspection\_bot.git
+$ cd ~/catkin\_ws
+$ catkin\_make
+$ source devel/setup.bash
+\end{DoxyCode}
+ \subsection*{Step 2 \+: Visualize Simulation Environment in Gazebo}
+
+Gazebo and R\+V\+IZ packages are used by this package for visualization. Refer the following figure. After following Step 1, in the same terminal follow the following steps\+: 
+\begin{DoxyCode}
+$ export TURTLEBOT3\_MODEL=waffle\_pi
+$ roslaunch turtlebot\_inspection\_bot turtlebot\_simulation.launch
+\end{DoxyCode}
+ \char`\"{}insert visualization output here\char`\"{}
+
+\subsubsection*{rosbag}
+
+This package is {\ttfamily rosbag} compliant. The bag file can be accessed from results/turtlebot\+\_\+inspection\+\_\+bot.\+bag. You may inspect the bag file by the command {\ttfamily rosbag info results/$\ast$.bag}. The bag file has a 46 seconds long recorded simulation of the package. You may use the bag file to play the simulation results by operating the following commands in three terminals simultaneously\+:
+
+{\bfseries Terminal 1\+:} 
+\begin{DoxyCode}
+$ roscore
+\end{DoxyCode}
+
+
+{\bfseries Terminal 2\+:} 
+\begin{DoxyCode}
+$ cd ~/catkin\_ws/src/turtlebot\_inspection\_bot
+$ rosbag play results/*.bag
+\end{DoxyCode}
+
+
+{\bfseries Terminal 3\+:} 
+\begin{DoxyCode}
+$ rqt\_console
+\end{DoxyCode}
+
+
+The package also come with record functionality for rosbag. i.\+e., you can record your own rosbag for the package by first building the project and launching it as follows\+: 
+\begin{DoxyCode}
+$ roslaunch turtlebot\_inspection\_bot turtlebot\_simulation.launch record:=true
+\end{DoxyCode}
+ The result can be accessed in the results the directory.
+
+\subsection*{Run R\+OS Test}
+
+The package has Level 2 Unit Test compliance. You can run the R\+OS tests by following the following two options\+:
+
+{\bfseries Option 1} 
+\begin{DoxyCode}
+$ cd ~/catkin\_ws
+$ source devel/setup.bash
+$ catkin\_make run\_tests\_turtlebot\_inspection\_bot              
+\end{DoxyCode}
+
+
+{\bfseries Option 2} 
+\begin{DoxyCode}
+$ cd ~/catkin\_ws
+$ source devel/setup.bash
+$ rostest turtlebot\_inspection\_bot test.launch
+\end{DoxyCode}
+
+
+\subsection*{Future Work}
+
+In our succeeding versions, we intend to do the following\+:
+\begin{DoxyEnumerate}
+\item Robust navigation algorithm for the {\ttfamily mover} node\+: Treat this problem as a reactive planning problem to make it robust for any uncertain environment.
+\item Intelligent detection for the {\ttfamily detector} node\+: Employ a Deep Neural Network to detect known anomaly classes.
+\item Randomize Environment\+: Randomize spawning of the anomalies randomly in the environment
+\item Use transforms\+: Get the real world coordinates with respect to the world frame than the robot frame.
+\end{DoxyEnumerate}
+
+{\bfseries Note\+:} Press {\bfseries ctrl+c} in the terminal to stop the program. 
