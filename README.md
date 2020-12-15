@@ -61,7 +61,7 @@ Follow the following steps for comprehensive installation guide of the package:
 
 ```
 $ cd ~/catkin_ws/src
-$ git clone --recursive https://github.com/kartikv97/TurtleBot_Gazebo_Walker.git
+$ git clone --recursive https://github.com/kartikv97/turtlebot_inspection_bot.git
 $ cd ~/catkin_ws
 $ catkin_make
 $ source devel/setup.bash
