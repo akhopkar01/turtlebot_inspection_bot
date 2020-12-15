@@ -35,12 +35,14 @@ before_install:
   # Prepare rosdep to install dependencies.
   - sudo rosdep init
   - rosdep update
-  - export TURTLEBOT3_MODEL=waffle_pi
+  - export TURTLEBOT3_MODEL= waffle_pi
 
 # Create a catkin workspace with the package under integration.
 install:
   # Create a catkin workspace
   - mkdir -p ~/catkin_ws/src
+  - export CWD = $pwd
+  - echo CWD
   - cd ~/catkin_ws/src
   - catkin_init_workspace
   # Create the devel/setup.bash (run catkin_make with an empty workspace) and
