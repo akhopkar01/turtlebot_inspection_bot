@@ -2,7 +2,7 @@
 /**
  * @copyright (c) 2020, Kartik Venkat, Kushagra Agrawal, Aditya Khopkar
  *
- * @file main.cpp
+ * @file detectorNode.cpp
  * @authors
  * Kartik Venkat kartik.venkat86@gmail.com \n
  * Kushagra Agrawal kushagraagrawal425@gmail.com  \n
