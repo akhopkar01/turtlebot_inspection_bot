@@ -1,7 +1,7 @@
 # **Turtlebot Inspection Robot ROS Package**
 [![Build Status](https://travis-ci.org/kartikv97/turtlebot_inspection_bot.svg?branch=master)](https://travis-ci.org/kartikv97/turtlebot_inspection_bot)
 [![Coverage Status](https://coveralls.io/repos/github/kartikv97/turtlebot_inspection_bot/badge.svg?branch=master)](https://coveralls.io/github/kartikv97/turtlebot_inspection_bot?branch=master)
-[![License](https://img.shields.io/badge/License-MIT%20-green)](https://github.com/kartikv97/turtlebot_inspection_bot/blob/dev/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT%20-green)](https://github.com/kartikv97/turtlebot_inspection_bot/blob/master/LICENSE)
 
 ---
 ## Overview
@@ -12,13 +12,13 @@ In this project, we developed a real time inspection robot using TurtleBot 3.
 We have created an executable ROS package (ROS Melodic) which autonomously navigates the turtlebot in the environment while detecting anomalies by detecting the anomaly color. Thus, the project leverages the idea of greedily recognizing the anomaly color (in this case green) in an environment with red colored objects which resemble properly working objects/machines. In this version of the project, the robot can only recognize the color of the workplace objects. We demonstrate our implementation in a Gazebo Simulation environment with RVIZ. The robot when identifies an anomaly, suggests the coordinates of the anomaly with respect to the robot coordinate frame in real-time. <br>
 
 #### Anomaly Detection Sample Image
-![Fig1. Anomaly Detection](https://github.com/kartikv97/turtlebot_inspection_bot/blob/dev/media/anomaly%20detection.png)
+![Fig1. Anomaly Detection](https://github.com/kartikv97/turtlebot_inspection_bot/blob/master/media/anomaly%20detection.png)
 
 
 We followed an Agile development process with TDD approach to develop the project in 3 sprints. This README provides a walk-through for our project with installation steps and execution steps.
 
 #### Package Demo GIF
-![Gif. Product Demo](https://github.com/kartikv97/turtlebot_inspection_bot/blob/dev/media/DemoVideo.gif)
+![Gif. Product Demo](https://github.com/kartikv97/turtlebot_inspection_bot/blob/master/media/DemoVideo.gif)
 
 
 ## Authors
@@ -81,7 +81,7 @@ $ roslaunch turtlebot_inspection_bot turtlebot_simulation.launch
 
 #### Visualization Window
 
-![Fig2. Visualization Window](https://github.com/kartikv97/turtlebot_inspection_bot/blob/dev/media/visualization_ros.png)
+![Fig2. Visualization Window](https://github.com/kartikv97/turtlebot_inspection_bot/blob/master/media/visualization_ros.png)
 
 
 ## Rosbag
